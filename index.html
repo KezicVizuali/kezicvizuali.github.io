@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KEZIĆ VIZUALI - Studio za vizualne komunikacije i dizajn</title>
+    <style>
+        /* Osnovne postavke i boje */
+        :root {
+            --bg-color: #0d0d0d;
+            --text-color: #f0f0f0;
+            --gold: #d4af37;
+            --gold-hover: #b5952f;
+            --dark-gray: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Navigacija */
+        header {
+            background-color: rgba(13, 13, 13, 0.95);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 50px;
+            box-sizing: border-box;
+        }
+
+        .logo img {
+            height: 60px; /* Prilagodi veličinu loga */
+            width: auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+
+        /* Hero Sekcija */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: linear-gradient(rgba(13,13,13,0.8), rgba(13,13,13,0.8)), url('Kezic-vizuali-transparent-xl.jpg') center/contain no-repeat;
+        }
+
+        .hero h1 {
+            color: var(--gold);
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            background-color: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            padding: 12px 30px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--gold);
+            color: var(--bg-color);
+        }
+
+        /* Sekcije općenito */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: var(--gold);
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--gold);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-center {
+            text-align: center;
+        }
+
+        /* O Meni */
+        .about-content {
+            background-color: var(--dark-gray);
+            padding: 40px;
+            border-radius: 8px;
+            border-left: 4px solid var(--gold);
+        }
+        
+        .about-content h3 {
+            color: var(--gold);
+            margin-top: 30px;
+        }
+
+        .about-content ul {
+            list-style-type: square;
+            color: var(--gold);
+        }
+        .about-content ul li span {
+            color: var(--text-color);
+        }
+
+        /* Usluge / Cjenik */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-category {
+            background-color: var(--dark-gray);
+            padding: 25px;
+            border-radius: 8px;
+            border-top: 4px solid var(--gold);
+        }
+
+        .service-category h3 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 5px;
+        }
+
+        .service-name {
+            flex: 1;
+            padding-right: 15px;
+        }
+
+        .service-price {
+            color: var(--gold);
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        /* Kontakt */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+            background-color: var(--dark-gray);
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-info h3 {
+            color: var(--gold);
+            margin-top: 0;
+        }
+
+        .social-links a {
+            color: var(--gold);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #000;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* Responzivnost */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            nav ul {
+                margin-top: 15px;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="Kezic-vizuali-transparent-xl.jpg" alt="Kezić Vizuali Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#pocetna">Početna</a></li>
+                <li><a href="#o-meni">O meni</a></li>
+                <li><a href="#usluge">Usluge i Cjenik</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="pocetna" class="hero">
+        <h1>Kezić Vizuali</h1>
+        <p>Studio za vizualne komunikacije i dizajn. Tamo gdje iskustvo susreće inovaciju.</p>
+        <a href="#kontakt" class="btn">Zatraži ponudu</a>
+    </section>
+
+    <section id="o-meni">
+        <div class="section-center">
+            <h2>O meni | KEZIĆ VIZUALI</h2>
+        </div>
+        <div class="about-content">
+            <p><strong>Tamo gdje iskustvo susreće inovaciju</strong></p>
+            <p>Moje ime je Krunoslav Kezić, a moj kreativni put započeo je prije više od 15 godina iza objektiva fotoaparata. Kroz to desetljeće i pol, naučio sam da fotografija nije samo pritisak na gumb, to je razumijevanje svjetla, hvatanje teksture i pričanje priče koja ne treba riječi.</p>
+            <p>Danas, kroz svoj obrt Kezić Vizuali, tu istu strast i profesionalnu preciznost unosim u novu eru vizualnih komunikacija.</p>
+            
+            <h3>Moja filozofija: Umjetnost vođena ljudskim okom</h3>
+            <p>U svijetu koji je preplavljen generičkim vizualima umjetne inteligencije, moj pristup je bitno drugačiji. Ja ne dopuštam algoritmu da vodi moju viziju; ja vodim njega. Moja metoda se temelji na hibridnom modelu:</p>
+            <ul>
+                <li><span><strong>Autentična baza:</strong> Svaki moj rad počinje s mojom autorskom fotografijom. Koristim svoje originalne snimke kao strukturnu referencu i temelj.</span></li>
+                <li><span><strong>Tehnička preciznost:</strong> Implementiram napredne tehnike osvjetljenja, kontrolu dubinske oštrine i autentične teksture koje sam usavršavao godinama kao profesionalni fotograf.</span></li>
+                <li><span><strong>Image-to-Image proces:</strong> Koristeći AI kao vrhunski alat, radim na rafiniranju svakog piksela dok ne postignem razinu hiper-realizma koja zadržava integritet prave fotografije, ali istovremeno širi granice mašte.</span></li>
+            </ul>
+
+            <h3>Zašto Kezić Vizuali?</h3>
+            <p>Bilo da radim na brendiranju lokalnih restorana u Velikoj Gorici, dizajnu unikatnih plakata ili stvaranju digitalne umjetnosti za globalno tržište, moj cilj je uvijek isti: produkcijski spremni vizuali najviše klase.</p>
+            <p>Kada surađujete sa mnom, ne dobivate samo digitalnu datoteku. Dobivate komad vizualne umjetnosti koji je rezultat 15 godina promatranja svijeta kroz tražilo fotoaparata. To je spoj stare škole majstorstva i tehnologije budućnosti. Posvećen sam tome da vizualni identitet vašeg brenda ne bude samo estetski privlačan, već i strateški osmišljen kako bi komunicirao vašu jedinstvenu priču tržištu.</p>
+        </div>
+    </section>
+
+    <section id="usluge">
+        <div class="section-center">
+            <h2>Usluge i Cjenik</h2>
+        </div>
+        <div class="services-grid">
+
+            <div class="service-category">
+                <h3>I. Vizualne komunikacije i kreiranje sadržaja</h3>
+                <div class="service-item"><span class="service-name">Produkcija autorskih vizuala za gastro-marketing (min. 10 kom)</span><span class="service-price">15,00 € / kom</span></div>
+                <div class="service-item"><span class="service-name">Vizualno dokumentiranje događanja i PR (1. sat / svaki slj.)</span><span class="service-price">80,00 € / 50,00 €</span></div>
+                <div class="service-item"><span class="service-name">Digitalna vizualizacija interijera i arhitekture (do 15 vizuala)</span><span class="service-price">150,00 € / obj.</span></div>
+                <div class="service-item"><span class="service-name">Izrada vizualnog sadržaja za kataloge i e-commerce</span><span class="service-price">20,00 € / art.</span></div>
+            </div>
+
+            <div class="service-category">
+                <h3>II. Grafički dizajn i priprema za tisak</h3>
+                <div class="service-item"><span class="service-name">Dizajn jelovnika i cjenika</span><span class="service-price">40,00 € / str.</span></div>
+                <div class="service-item"><span class="service-name">Dizajn vizitke, zahvalnice ili pozivnice</span><span class="service-price">30,00 €</span></div>
+                <div class="service-item"><span class="service-name">Lektura i jezična korekcija (kartica 1500 znakova)</span><span class="service-price">5,00 €</span></div>
+                <div class="service-item"><span class="service-name">Izrada vizualnog identiteta (Logotip + knjiga standarda)</span><span class="service-price">od 250,00 €</span></div>
+                <div class="service-item"><span class="service-name">Dizajn promotivnog letka, brošure ili plakata</span><span class="service-price">od 60,00 €</span></div>
+                <div class="service-item"><span class="service-name">Dizajn ambalaže i naljepnica za proizvode</span><span class="service-price">od 100,00 €</span></div>
+                <div class="service-item"><span class="service-name">Prijelom i grafička priprema publikacija</span><span class="service-price">25,00 € / str.</span></div>
+            </div>
+
+            <div class="service-category">
+                <h3>III. Jezične usluge i prijevodi</h3>
+                <div class="service-item"><span class="service-name">AI-potpomognuti prijevod (jelovnici, letci)</span><span class="service-price">15,00 € / str.</span></div>
+                <div class="service-item"><span class="service-name">Prijevod i prilagodba za web/društvene mreže</span><span class="service-price">Na upit</span></div>
+            </div>
+
+            <div class="service-category">
+                <h3>IV. Marketing, PR i komunikacije</h3>
+                <div class="service-item"><span class="service-name">Vođenje društvenih mreža (FB/IG mjesečni paket)</span><span class="service-price">od 300,00 €</span></div>
+                <div class="service-item"><span class="service-name">Izrada i provedba promotivne kampanje</span><span class="service-price">od 500,00 €</span></div>
+                <div class="service-item"><span class="service-name">PR savjetovanje i komunikacijska strategija</span><span class="service-price">60,00 € / sat</span></div>
+                <div class="service-item"><span class="service-name">Pisanje autorskih tekstova i promo-članaka</span><span class="service-price">40,00 € / tekst</span></div>
+                <div class="service-item"><span class="service-name">Uređivanje informativnih listova i biltena</span><span class="service-price">60,00 € / sat</span></div>
+            </div>
+
+            <div class="service-category">
+                <h3>V. Edukacija i poučavanje</h3>
+                <div class="service-item"><span class="service-name">Individualna poduka: Primjena AI u poslovanju (1na1)</span><span class="service-price">60,00 € / sat</span></div>
+                <div class="service-item"><span class="service-name">Grupna AI radionica za male poduzetnike</span><span class="service-price">80,00 € / polaz.</span></div>
+            </div>
+
+            <div class="service-category">
+                <h3>VI. Digitalna rješenja i Web</h3>
+                <div class="service-item"><span class="service-name">Izrada Landing stranice (jednostavna web stranica)</span><span class="service-price">350,00 €</span></div>
+                <div class="service-item"><span class="service-name">Postavljanje i optimizacija Payhip online trgovine</span><span class="service-price">150,00 €</span></div>
+                <div class="service-item"><span class="service-name">Tehničko održavanje web stranice (mjesečno)</span><span class="service-price">40,00 €</span></div>
+                <div class="service-item"><span class="service-name">Zakup hostinga i domene (godišnje)</span><span class="service-price">od 120,00 €</span></div>
+            </div>
+
+            <div class="service-category">
+                <h3>VII. Savjetovanje i administracija</h3>
+                <div class="service-item"><span class="service-name">Strateško vizualno savjetovanje (Visual Audit)</span><span class="service-price">60,00 € / sat</span></div>
+                <div class="service-item"><span class="service-name">Tehnička priprema dokumentacije i dopisa</span><span class="service-price">30,00 € / sat</span></div>
+                <div class="service-item"><span class="service-name">Digitalno arhiviranje i organizacija materijala</span><span class="service-price">40,00 € / sat</span></div>
+                <div class="service-item"><span class="service-name">Organizacija izložbi, manifestacija i evenata</span><span class="service-price">od 600 € / projekt*</span></div>
+                <div class="service-item"><span class="service-name">Usluge virtualnog asistenta i poslovna pomoć</span><span class="service-price">40,00 € / sat</span></div>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 10px; border-top: none;">* i niže, ovisno o projektu</p>
+            </div>
+
+            <div class="service-category">
+                <h3>VIII. Advanced AI Visual Lab & Izdavaštvo</h3>
+                <div class="service-item"><span class="service-name">AI restauracija i digitalna obnova vizuala (do 8K)</span><span class="service-price">10 – 20 €</span></div>
+                <div class="service-item"><span class="service-name">Generative Background Swap (promjena ambijenta)</span><span class="service-price">20 – 35 €</span></div>
+                <div class="service-item"><span class="service-name">AI Creative Poster Design (spoj grafike i dizajna)</span><span class="service-price">45 – 75 €</span></div>
+                <div class="service-item"><span class="service-name">AI Video Crystal Clear (stabilizacija)</span><span class="service-price">15 – 30 €</span></div>
+                <div class="service-item"><span class="service-name">Digitalni vodiči, predlošci i e-knjige (PDF)</span><span class="service-price">9,00 € – 35,00 €</span></div>
+                <div class="service-item"><span class="service-name">Unikatne uokvirene AI slike i radovi</span><span class="service-price">Na upit</span></div>
+            </div>
+
+            <div class="service-category" style="border-top: 4px solid #fff;">
+                <h3>X. Posebni Promo Paketi</h3>
+                <div class="service-item" style="border:none; margin-top: 15px;">
+                    <span class="service-name"><strong>GASTRO STARTER PACK (All-in-one)</strong><br><br>Idealno za restorane, kafiće i OPG-ove. Uključuje 10 namjenskih vizuala hrane, dizajn jelovnika do 4 str., 3 AI unikatna vizuala te koordinaciju s tiskarom.</span>
+                    <span class="service-price" style="font-size: 1.2rem;">450,00 €</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="kontakt">
+        <div class="section-center">
+            <h2>Kontakt</h2>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Područje rada</h3>
+                <p><strong>Terenski rad:</strong> Fotografiranje i akvizicija materijala dostupni su na području cijele Hrvatske i Slovenije.</p>
+                <p><strong>Online usluge:</strong> Dizajn, web rješenja i digitalni marketing radimo bez geografskih ograničenja - pokrivamo cijelu Hrvatsku i inozemstvo.</p>
+                
+                <h3 style="margin-top: 30px;">Radno vrijeme</h3>
+                <p>Ponedjeljak - Petak: 08:00 - 16:00<br>Subota: Prema dogovoru<br>Nedjelja: Zatvoreno (neradna)</p>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Stupite u kontakt</h3>
+                <p><strong>Email:</strong> <a href="mailto:kezicvizuali@gmail.com" style="color: var(--gold); text-decoration: none;">kezicvizuali@gmail.com</a></p>
+                
+                <h3 style="margin-top: 30px;">Povežimo se</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/kezicvizuali.vg" target="_blank">► Službena Facebook Stranica</a>
+                    <a href="https://www.facebook.com/kezicvizuali/" target="_blank">► Privatni Profil</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Kezić Vizuali. Sva prava pridržana.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
