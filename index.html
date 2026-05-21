@@ -1,509 +1,99 @@
 <!DOCTYPE html>
 <html lang="hr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KEZIĆ VIZUALI - Premium Studio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Osnovne postavke i Premium boje */
-        :root {
-            --bg-dark: #050505;
-            --text-light: #e0e0e0;
-            --gold-primary: #D4AF37;
-            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
-            --panel-bg: rgba(20, 20, 20, 0.7);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kezić Vizuali – Kreativni Studio, Velika Gorica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --gold-dim: rgba(201,168,76,0.15);
+    --bg: #0c0c0b;
+    --bg2: #131310;
+    --bg3: #1a1a16;
+    --text: #f0ead8;
+    --text-muted: #9a9080;
+    --border: rgba(201,168,76,0.18);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            margin: 0;
-            padding: 0;
-            line-height: 1.8;
-            font-weight: 300;
-        }
+  html { scroll-behavior: smooth; }
 
-        h1, h2, h3 {
-            font-family: 'Cinzel', serif;
-            font-weight: 600;
-            margin: 0;
-        }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
 
-        /* Animacije pri učitavanju */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 68px;
+    background: rgba(12,12,11,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .nav-logo span { color: var(--text); font-weight: 300; }
+  .nav-logo img { height: 38px; width: auto; object-fit: contain; }
+  .logo-placeholder {
+    height: 38px; width: 38px;
+    border: 1.5px dashed var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.55rem; color: var(--gold); letter-spacing: 0.05em;
+    text-align: center; line-height: 1.3; padding: 2px;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.45rem 1.2rem;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold); color: #0c0c0b; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--text); transition: 0.3s; }
 
-        .animate-up {
-            animation: fadeIn 1s ease-out forwards;
-        }
-
-        /* Navigacija */
-        header {
-            background-color: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 50px;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-        }
-
-        .logo img {
-            height: 50px;
-            width: auto;
-            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav ul li {
-            margin-left: 40px;
-        }
-
-        nav ul li a {
-            color: var(--text-light);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 2px;
-            transition: color 0.3s, text-shadow 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: var(--gold-primary);
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-        }
-
-        /* Hero Sekcija (Početna) */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            background: radial-gradient(circle at center, rgba(30,30,30,1) 0%, rgba(5,5,5,1) 100%);
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url('Kezic-vizuali-transparent-xl.jpg') center/contain no-repeat;
-            opacity: 0.05; /* Jako suptilni vodeni žig loga u pozadini */
-            z-index: 0;
-        }
-
-        .hero-content {
-            z-index: 1;
-        }
-
-        .hero h1 {
-            color: transparent;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            font-size: 4rem;
-            letter-spacing: 5px;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            max-width: 700px;
-            margin: 0 auto 40px auto;
-            color: #aaa;
-        }
-
-        .btn-gold {
-            display: inline-block;
-            background: var(--gold-gradient);
-            color: #000;
-            padding: 15px 40px;
-            font-family: 'Cinzel', serif;
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-decoration: none;
-            border-radius: 3px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-gold:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
-        }
-
-        /* Općenito za sekcije */
-        section {
-            padding: 100px 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--gold-primary);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            display: inline-block;
-            position: relative;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            width: 50%;
-            height: 1px;
-            background: var(--gold-primary);
-            bottom: -10px;
-            left: 25%;
-        }
-
-        /* O Meni */
-        .about-box {
-            background: var(--panel-bg);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            border-radius: 5px;
-            padding: 50px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        .about-box p {
-            margin-bottom: 20px;
-            font-size: 1rem;
-            color: #bbb;
-        }
-
-        .about-box h3 {
-            color: var(--gold-primary);
-            font-size: 1.5rem;
-            margin: 40px 0 20px 0;
-            letter-spacing: 1px;
-        }
-
-        .about-box ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .about-box ul li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 15px;
-            color: #bbb;
-        }
-
-        .about-box ul li::before {
-            content: '♦';
-            color: var(--gold-primary);
-            position: absolute;
-            left: 0;
-            font-size: 1.2rem;
-            line-height: 1;
-        }
-
-        /* Cjenik Grid */
-        .services-wrapper {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-        }
-
-        .service-card {
-            background: var(--panel-bg);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 30px;
-            border-radius: 5px;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(212, 175, 55, 0.4);
-        }
-
-        .service-card h3 {
-            color: var(--gold-primary);
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        .service-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 12px;
-            border-bottom: 1px dotted rgba(255,255,255,0.1);
-            padding-bottom: 8px;
-        }
-
-        .service-name {
-            font-size: 0.9rem;
-            color: #ccc;
-            padding-right: 15px;
-        }
-
-        .service-price {
-            font-family: 'Cinzel', serif;
-            color: var(--gold-primary);
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .promo-card {
-            background: linear-gradient(rgba(20,20,20,0.9), rgba(20,20,20,0.9)), url('Kezic-vizuali-transparent-xl.jpg') center/cover;
-            border: 1px solid var(--gold-primary);
-            grid-column: 1 / -1; /* Zauzima cijelu širinu */
-        }
-
-        /* Kontakt */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            background: var(--panel-bg);
-            padding: 50px;
-            border-radius: 5px;
-            border: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        .contact-item h3 {
-            color: var(--gold-primary);
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-        }
-
-        .contact-item p {
-            color: #bbb;
-            font-size: 0.95rem;
-        }
-
-        .contact-link {
-            display: inline-block;
-            color: #fff;
-            text-decoration: none;
-            margin-bottom: 15px;
-            font-size: 1rem;
-            transition: color 0.3s;
-        }
-
-        .contact-link:hover {
-            color: var(--gold-primary);
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: #020202;
-            color: #555;
-            font-size: 0.8rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* Responzivnost */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 15px;
-            }
-            nav ul {
-                margin-top: 20px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            nav ul li {
-                margin: 5px 15px;
-            }
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="logo">
-            <img src="Kezic-vizuali-transparent-xl.jpg" alt="Kezić Vizuali Logo">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#pocetna">Početna</a></li>
-                <li><a href="#o-meni">O meni</a></li>
-                <li><a href="#usluge">Usluge</a></li>
-                <li><a href="#kontakt">Kontakt</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section id="pocetna" class="hero">
-        <div class="hero-content animate-up">
-            <h1>Kezić Vizuali</h1>
-            <p>Studio za vizualne komunikacije i dizajn. Tamo gdje iskustvo susreće inovaciju.</p>
-            <a href="#kontakt" class="btn-gold">Zatraži ponudu</a>
-        </div>
-    </section>
-
-    <section id="o-meni">
-        <div class="section-title animate-up">
-            <h2>O meni</h2>
-        </div>
-        <div class="about-box animate-up">
-            <p style="font-size: 1.2rem; color: #fff; text-align: center; margin-bottom: 40px;"><em>Tamo gdje iskustvo susreće inovaciju</em></p>
-            <p>Moje ime je Krunoslav Kezić, a moj kreativni put započeo je prije više od 15 godina iza objektiva fotoaparata. Kroz to desetljeće i pol, naučio sam da fotografija nije samo pritisak na gumb, to je razumijevanje svjetla, hvatanje teksture i pričanje priče koja ne treba riječi.</p>
-            <p>Danas, kroz svoj obrt Kezić Vizuali, tu istu strast i profesionalnu preciznost unosim u novu eru vizualnih komunikacija.</p>
-            
-            <h3>Umjetnost vođena ljudskim okom</h3>
-            <p>U svijetu koji je preplavljen generičkim vizualima umjetne inteligencije, moj pristup je bitno drugačiji. Ja ne dopuštam algoritmu da vodi moju viziju; ja vodim njega. Moja metoda se temelji na hibridnom modelu:</p>
-            <ul>
-                <li><strong>Autentična baza:</strong> Svaki moj rad počinje s mojom autorskom fotografijom. Koristim svoje originalne snimke kao strukturnu referencu.</li>
-                <li><strong>Tehnička preciznost:</strong> Implementiram napredne tehnike osvjetljenja, kontrolu dubinske oštrine i autentične teksture.</li>
-                <li><strong>Image-to-Image proces:</strong> Koristeći AI kao vrhunski alat, radim na rafiniranju svakog piksela dok ne postignem razinu hiper-realizma.</li>
-            </ul>
-
-            <h3>Zašto Kezić Vizuali?</h3>
-            <p>Bilo da radim na brendiranju lokalnih restorana u Velikoj Gorici, dizajnu unikatnih plakata ili stvaranju digitalne umjetnosti za globalno tržište, moj cilj je uvijek isti: produkcijski spremni vizuali najviše klase.</p>
-            <p>Kada surađujete sa mnom, ne dobivate samo digitalnu datoteku. Dobivate komad vizualne umjetnosti koji je rezultat 15 godina promatranja svijeta kroz tražilo fotoaparata. To je spoj stare škole majstorstva i tehnologije budućnosti.</p>
-        </div>
-    </section>
-
-    <section id="usluge">
-        <div class="section-title animate-up">
-            <h2>Portfelj Usluga</h2>
-        </div>
-        <div class="services-wrapper">
-
-            <div class="service-card">
-                <h3>I. Vizualne komunikacije</h3>
-                <div class="service-row"><span class="service-name">Gastro-marketing vizuali (min. 10 kom)</span><span class="service-price">15,00 € / kom</span></div>
-                <div class="service-row"><span class="service-name">Dokumentiranje događanja (1. sat / ostali)</span><span class="service-price">80,00 € / 50,00 €</span></div>
-                <div class="service-row"><span class="service-name">Vizualizacija interijera (do 15 vizuala)</span><span class="service-price">150,00 € / obj.</span></div>
-                <div class="service-row"><span class="service-name">Sadržaj za kataloge i e-commerce</span><span class="service-price">20,00 € / art.</span></div>
-            </div>
-
-            <div class="service-card">
-                <h3>II. Grafički dizajn i priprema</h3>
-                <div class="service-row"><span class="service-name">Dizajn jelovnika i cjenika</span><span class="service-price">40,00 € / str.</span></div>
-                <div class="service-row"><span class="service-name">Izrada vizualnog identiteta (Logo + knjiga)</span><span class="service-price">od 250,00 €</span></div>
-                <div class="service-row"><span class="service-name">Dizajn ambalaže i naljepnica</span><span class="service-price">od 100,00 €</span></div>
-                <div class="service-row"><span class="service-name">Dizajn promotivnog plakata/letka</span><span class="service-price">od 60,00 €</span></div>
-                <div class="service-row"><span class="service-name">Dizajn vizitke, zahvalnice</span><span class="service-price">30,00 €</span></div>
-                <div class="service-row"><span class="service-name">Lektura i jezična korekcija</span><span class="service-price">5,00 €</span></div>
-            </div>
-
-            <div class="service-card">
-                <h3>III. Marketing i PR</h3>
-                <div class="service-row"><span class="service-name">Vođenje društvenih mreža (mjesečno)</span><span class="service-price">od 300,00 €</span></div>
-                <div class="service-row"><span class="service-name">Izrada i provedba promo kampanje</span><span class="service-price">od 500,00 €</span></div>
-                <div class="service-row"><span class="service-name">PR savjetovanje i strategija</span><span class="service-price">60,00 € / sat</span></div>
-                <div class="service-row"><span class="service-name">Pisanje autorskih tekstova</span><span class="service-price">40,00 € / tekst</span></div>
-            </div>
-
-            <div class="service-card">
-                <h3>IV. Digitalna rješenja i Web</h3>
-                <div class="service-row"><span class="service-name">Izrada Landing stranice</span><span class="service-price">350,00 €</span></div>
-                <div class="service-row"><span class="service-name">Payhip online trgovina</span><span class="service-price">150,00 €</span></div>
-                <div class="service-row"><span class="service-name">Zakup hostinga i domene (godišnje)</span><span class="service-price">od 120,00 €</span></div>
-                <div class="service-row"><span class="service-name">Tehničko održavanje weba (mjesečno)</span><span class="service-price">40,00 €</span></div>
-            </div>
-            
-            <div class="service-card">
-                <h3>V. Edukacija i Administracija</h3>
-                <div class="service-row"><span class="service-name">Organizacija izložbi i evenata</span><span class="service-price">od 600 € / proj.</span></div>
-                <div class="service-row"><span class="service-name">Strateško vizualno savjetovanje</span><span class="service-price">60,00 € / sat</span></div>
-                <div class="service-row"><span class="service-name">Usluge virtualnog asistenta</span><span class="service-price">40,00 € / sat</span></div>
-                <div class="service-row"><span class="service-name">Grupna AI radionica</span><span class="service-price">80,00 € / polaz.</span></div>
-            </div>
-
-            <div class="service-card">
-                <h3>VI. Advanced AI Visual Lab</h3>
-                <div class="service-row"><span class="service-name">AI Creative Poster Design</span><span class="service-price">45 – 75 €</span></div>
-                <div class="service-row"><span class="service-name">Generative Background Swap</span><span class="service-price">20 – 35 €</span></div>
-                <div class="service-row"><span class="service-name">AI Video Crystal Clear (stabilizacija)</span><span class="service-price">15 – 30 €</span></div>
-                <div class="service-row"><span class="service-name">Digitalni vodiči i e-knjige</span><span class="service-price">9 – 35 €</span></div>
-            </div>
-
-            <div class="service-card promo-card">
-                <h3>X. GASTRO STARTER PACK</h3>
-                <p style="color: #ddd; font-size: 0.9rem; margin-bottom: 20px;">Idealno za restorane, kafiće i OPG-ove. Uključuje 10 namjenskih vizuala hrane, dizajn jelovnika do 4 str., 3 AI unikatna vizuala te koordinaciju s tiskarom.</p>
-                <div class="service-row" style="border: none;"><span class="service-name" style="color: #fff;"><strong>ALL-IN-ONE PAKET</strong></span><span class="service-price" style="font-size: 1.5rem;">450,00 €</span></div>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="kontakt">
-        <div class="section-title animate-up">
-            <h2>Kontaktirajte Nas</h2>
-        </div>
-        <div class="contact-grid animate-up">
-            <div class="contact-item">
-                <h3>Područje djelovanja</h3>
-                <p><strong>Terenski rad:</strong> Fotografiranje i akvizicija materijala dostupni su na području cijele Hrvatske i Slovenije.</p>
-                <p><strong>Online usluge:</strong> Dizajn, web rješenja i digitalni marketing radimo bez geografskih ograničenja.</p>
-                
-                <h3 style="margin-top: 40px;">Radno vrijeme</h3>
-                <p>Ponedjeljak - Petak: 08:00 - 16:00<br>Subota: Prema dogovoru<br>Nedjelja: Zatvoreno</p>
-            </div>
-            
-            <div class="contact-item">
-                <h3>Direktni kontakt</h3>
-                <p style="margin-bottom: 30px;">Spremni ste podići svoj brend na višu razinu? Pošaljite nam upit i odgovorit ćemo u najkraćem mogućem roku.</p>
-                
-                <a href="mailto:kezicvizuali@gmail.com" class="contact-link">✉ kezicvizuali@gmail.com</a><br>
-                
-                <h3 style="margin-top: 40px;">Društvene mreže</h3>
-                <a href="https://www.facebook.com/kezicvizuali.vg" target="_blank" class="contact-link">► Službena Facebook Stranica</a><br>
-                <a href="https://www.facebook.com/kezicvizuali/" target="_blank" class="contact-link">► Privatni Profil</a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Kezić Vizuali. Sva prava pridržana.</p>
-    </footer>
-
-</body>
-</html>
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 5% 8%;
+    position: relative;
+    overflow: hidden;
