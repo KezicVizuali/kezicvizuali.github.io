@@ -648,20 +648,20 @@
       </div>
 
       <div class="contact-form-wrap reveal">
-        <form class="contact-form" id="contact-form">
+        <form class="contact-form" action="https://formspree.io/f/mgoqkdek" method="POST" id="contact-form">
           <div class="form-row">
             <div class="form-group">
               <label>Ime i Prezime / Tvrtka</label>
-              <input type="text" placeholder="Vaše ime" required>
+              <input type="text" name="name" placeholder="Vaše ime" required>
             </div>
             <div class="form-group">
               <label>Email Adresa</label>
-              <input type="email" placeholder="vas@email.com" required>
+              <input type="email" name="email" placeholder="vas@email.com" required>
             </div>
           </div>
           <div class="form-group">
             <label>Vrsta Usluge</label>
-            <select>
+            <select name="service">
               <option>Fotografiranje (Razne foto usluge)</option>
               <option>Gastro Starter Pack</option>
               <option>Grafički Dizajn (Logo, Jelovnici...)</option>
@@ -673,7 +673,7 @@
           </div>
           <div class="form-group">
             <label>Vaša Poruka</label>
-            <textarea placeholder="Ukratko opišite što vam je potrebno..." required></textarea>
+            <textarea name="message" placeholder="Ukratko opišite što vam je potrebno..." required></textarea>
           </div>
           <button type="submit" class="btn-primary" style="margin-top:0.5rem; width:fit-content;">Pošalji Upit</button>
         </form>
