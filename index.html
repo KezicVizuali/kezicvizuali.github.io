@@ -97,3 +97,846 @@
     padding: 0 5% 8%;
     position: relative;
     overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 75% 40%, rgba(201,168,76,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 60%),
+      linear-gradient(160deg, #0c0c0b 0%, #141410 50%, #0c0c0b 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0; opacity: 0.04;
+    background-image: linear-gradient(var(--gold) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 820px; }
+  .hero-eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--gold);
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold);
+    color: #0c0c0b;
+    border: none;
+    padding: 0.85rem 2rem;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid rgba(240,234,216,0.25);
+    padding: 0.85rem 2rem;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats {
+    position: absolute; bottom: 8%; right: 5%;
+    display: flex; gap: 3rem; z-index: 1;
+  }
+  .hero-stat { text-align: right; }
+  .hero-stat-num {
+    font-family: var(--serif);
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 0.72rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 5%; }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::before { content:''; width:30px; height:1px; background:var(--gold); display:block; }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .divider { width: 60px; height: 1px; background: var(--gold); margin: 1.5rem 0; }
+
+  /* ── O MENI ── */
+  #o-meni { background: var(--bg); }
+  .omeni-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+  .omeni-photo-wrap { position: sticky; top: 100px; }
+  .omeni-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; border: 1px solid var(--border); display: block; }
+  .omeni-photo-placeholder {
+    width: 100%; aspect-ratio: 3/4;
+    border: 2px dashed var(--border);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.75rem; color: var(--text-muted); background: var(--bg2);
+  }
+  .omeni-photo-placeholder span { font-size: 2.5rem; opacity: 0.4; }
+  .omeni-photo-placeholder p { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; text-align: center; padding: 0 1rem; }
+  .omeni-photo-caption { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.75rem; text-align: center; letter-spacing: 0.05em; }
+  .omeni-text p { color: var(--text-muted); margin-bottom: 1.1rem; line-height: 1.9; }
+  .omeni-text p strong { color: var(--text); font-weight: 400; }
+  .omeni-philosophy { margin: 2rem 0; }
+  .omeni-philosophy-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+  .omeni-step { display: flex; gap: 1rem; margin-bottom: 1.1rem; align-items: flex-start; }
+  .omeni-step-icon { width: 32px; height: 32px; flex-shrink: 0; border: 1px solid var(--gold); color: var(--gold); font-size: 0.72rem; font-weight: 500; display: flex; align-items: center; justify-content: center; letter-spacing: 0.05em; margin-top: 0.1rem; }
+  .omeni-step-body strong { display: block; font-size: 0.9rem; color: var(--text); font-weight: 400; margin-bottom: 0.2rem; }
+  .omeni-step-body span { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; }
+  .omeni-quote { border-left: 2px solid var(--gold); padding: 1rem 1.5rem; background: var(--bg2); margin-top: 2rem; }
+  .omeni-quote p { font-family: var(--serif); font-size: 1.1rem; font-style: italic; color: var(--text); margin-bottom: 0; line-height: 1.7; }
+  .omeni-socials { display: flex; gap: 0.75rem; margin-top: 2rem; flex-wrap: wrap; }
+  .social-btn { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--border); padding: 0.5rem 1rem; font-size: 0.8rem; color: var(--text-muted); text-decoration: none; letter-spacing: 0.08em; transition: border-color 0.2s, color 0.2s; }
+  .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .social-btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+  @media (max-width: 900px) { .omeni-grid { grid-template-columns: 1fr; gap: 2.5rem; } .omeni-photo-wrap { position: static; } .omeni-photo-placeholder { aspect-ratio: 4/3; } }
+
+  /* ── O NAMA ── */
+  #o-nama { background: var(--bg2); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .about-text p { color: var(--text-muted); margin-bottom: 1rem; line-height: 1.85; }
+  .about-text p strong { color: var(--text); font-weight: 400; }
+  .about-right { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid var(--border); }
+  .about-feature {
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    transition: background 0.2s;
+  }
+  .about-feature:hover { background: var(--bg2); }
+  .about-feature-icon {
+    font-size: 1.6rem; margin-bottom: 0.8rem; color: var(--gold);
+  }
+  .about-feature h4 {
+    font-family: var(--serif); font-size: 1rem; font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .about-feature p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ── USLUGE ── */
+  #usluge { background: var(--bg); }
+  .services-intro { max-width: 600px; margin-bottom: 4rem; }
+  .services-intro p { color: var(--text-muted); }
+  .services-tabs { display: flex; gap: 0; margin-bottom: 3rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .tab-btn {
+    background: none; border: none;
+    padding: 0.75rem 1.5rem;
+    color: var(--text-muted);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    position: relative; top: 1px;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .services-panel { display: none; }
+  .services-panel.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .service-card {
+    background: var(--bg2);
+    padding: 2rem;
+    transition: background 0.2s;
+    cursor: default;
+  }
+  .service-card:hover { background: var(--bg3); }
+  .service-icon { font-size: 1.4rem; margin-bottom: 1rem; }
+  .service-name {
+    font-family: var(--serif); font-size: 1.15rem; font-weight: 600;
+    margin-bottom: 0.5rem; line-height: 1.3;
+  }
+  .service-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
+  .service-price {
+    font-size: 0.8rem; color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── GASTRO PACK ── */
+  #gastro {
+    background: linear-gradient(135deg, #131310 0%, #1a1a14 50%, #0d0d0a 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .gastro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .gastro-badge {
+    display: inline-block;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .gastro-price-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+  }
+  .gastro-price-label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
+  .gastro-price-num {
+    font-family: var(--serif);
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .gastro-price-note { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 2rem; }
+  .gastro-items { list-style: none; margin-bottom: 2rem; }
+  .gastro-items li {
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+    display: flex; align-items: flex-start; gap: 0.75rem;
+  }
+  .gastro-items li::before { content: '✓'; color: var(--gold); flex-shrink: 0; margin-top: 0.05rem; }
+  .gastro-target {
+    font-size: 0.8rem; color: var(--text-muted);
+    letter-spacing: 0.05em; margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  /* ── CJENIK ── */
+  #cjenik { background: var(--bg2); }
+  .pricing-intro { max-width: 600px; margin-bottom: 4rem; }
+  .pricing-intro p { color: var(--text-muted); }
+  .pricing-category { margin-bottom: 3rem; }
+  .pricing-category-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .cat-num {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    background: var(--gold-dim);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.5rem;
+  }
+  .pricing-table { width: 100%; border-collapse: collapse; }
+  .pricing-table tr { border-bottom: 1px solid rgba(201,168,76,0.08); }
+  .pricing-table tr:hover { background: rgba(201,168,76,0.03); }
+  .pricing-table td { padding: 0.9rem 0.5rem; font-size: 0.88rem; }
+  .pricing-table td:first-child { color: var(--text); padding-left: 0; }
+  .pricing-table td:last-child {
+    text-align: right; color: var(--gold);
+    font-family: var(--serif);
+    font-size: 1rem;
+    white-space: nowrap;
+    padding-right: 0;
+  }
+  .pricing-table td small { display: block; font-size: 0.75rem; color: var(--text-muted); margin-top: 0.1rem; }
+  .pricing-note {
+    background: var(--bg3); border-left: 2px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    font-size: 0.84rem; color: var(--text-muted);
+    line-height: 1.7;
+    margin-top: 2rem;
+  }
+  .pricing-note strong { color: var(--text); font-weight: 400; }
+
+  /* ── KONTAKT ── */
+  #kontakt { background: var(--bg); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+  .contact-info p { color: var(--text-muted); margin-bottom: 2rem; line-height: 1.8; }
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .contact-detail-icon {
+    width: 38px; height: 38px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: var(--gold); flex-shrink: 0;
+  }
+  .contact-detail-text label { display: block; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.2rem; }
+  .contact-detail-text span { font-size: 0.92rem; color: var(--text); }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+  .form-group input, .form-group textarea, .form-group select {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 300;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+    appearance: none;
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); font-size: 0.85rem; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+  .form-group select option { background: #1a1a16; }
+  .form-group textarea { min-height: 120px; }
+  .form-note { font-size: 0.78rem; color: var(--text-muted); }
+  #form-success { display: none; background: rgba(201,168,76,0.1); border: 1px solid var(--gold); padding: 1rem 1.25rem; color: var(--gold); font-size: 0.9rem; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 3rem 5%; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+  .footer-brand .nav-logo { display: block; margin-bottom: 0.75rem; }
+  .footer-brand p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; max-width: 260px; }
+  .footer-col h5 { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.5rem; }
+  .footer-col ul li a { font-size: 0.84rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid var(--border); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+  .footer-bottom p { font-size: 0.78rem; color: var(--text-muted); }
+  .footer-bottom span { color: var(--gold); }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    .hero-stats { display: none; }
+    .about-grid, .gastro-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    nav { padding: 0 5%; }
+    .nav-links {
+      position: fixed; top: 68px; left: 0; right: 0; background: rgba(12,12,11,0.98);
+      flex-direction: column; gap: 0; padding: 0;
+      border-bottom: 1px solid var(--border);
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: clip-path 0.4s ease;
+    }
+    .nav-links.open { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    .nav-links li { border-bottom: 1px solid rgba(201,168,76,0.08); }
+    .nav-links a { display: block; padding: 1.5rem 5%; text-align: center; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+  }
+</style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="logo-placeholder">KV</div>
+      Kezić<span>Vizuali</span>
+    </a>
+    <button class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#o-meni">O meni</a></li>
+      <li><a href="#usluge">Usluge</a></li>
+      <li><a href="#cjenik">Cjenik</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+    <a href="#kontakt" class="nav-cta">Zatraži Ponudu</a>
+  </nav>
+
+  <header id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content reveal">
+      <div class="hero-eyebrow">Digitalni Kreativni Studio</div>
+      <h1 class="hero-title">Tamo gdje iskustvo <em>susreće</em> inovaciju.</h1>
+      <p class="hero-sub">Od autentične fotografije do hiper-realistične AI umjetnosti. Stvaramo produkcijski spremne vizuale najviše klase koji pričaju priču o vašem brendu.</p>
+      <div class="hero-btns">
+        <a href="#usluge" class="btn-primary">Istraži Usluge</a>
+        <a href="#kontakt" class="btn-outline">Kontaktirajte Nas</a>
+      </div>
+    </div>
+    <div class="hero-stats reveal">
+      <div class="hero-stat">
+        <div class="hero-stat-num">15+</div>
+        <div class="hero-stat-label">Godina Iskustva</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">∞</div>
+        <div class="hero-stat-label">Kreativnih Mogućnosti</div>
+      </div>
+    </div>
+  </header>
+
+  <section id="o-meni">
+    <div class="omeni-grid">
+      <div class="omeni-photo-wrap reveal">
+        <div class="omeni-photo-placeholder">
+          <span>📷</span>
+          <p>Ovdje ide vaša fotografija<br>(Krunoslav Kezić)</p>
+        </div>
+      </div>
+      <div class="omeni-text reveal">
+        <div class="section-label">O meni</div>
+        <h2 class="section-title">Umjetnost vođena <em>ljudskim okom.</em></h2>
+        <div class="divider"></div>
+        <p>Moje ime je <strong>Krunoslav Kezić</strong>, a moj kreativni put započeo je prije više od 15 godina iza objektiva fotoaparata. Kroz to desetljeće i pol, naučio sam da fotografija nije samo pritisak na gumb, to je razumijevanje svjetla, hvatanje teksture i pričanje priče koja ne treba riječi.</p>
+        <p>Danas, kroz svoj obrt Kezić Vizuali, tu istu strast i profesionalnu preciznost unosim u novu eru vizualnih komunikacija.</p>
+        
+        <div class="omeni-philosophy">
+          <div class="omeni-philosophy-title">Hibridni Model Stvaranja</div>
+          
+          <div class="omeni-step">
+            <div class="omeni-step-icon">01</div>
+            <div class="omeni-step-body">
+              <strong>Autentična baza</strong>
+              <span>Svaki moj rad počinje s mojom autorskom fotografijom. Koristim svoje originalne snimke kao strukturnu referencu i temelj za daljnju nadogradnju.</span>
+            </div>
+          </div>
+          <div class="omeni-step">
+            <div class="omeni-step-icon">02</div>
+            <div class="omeni-step-body">
+              <strong>Tehnička preciznost</strong>
+              <span>Implementiram napredne tehnike osvjetljenja, kontrolu dubinske oštrine i autentične teksture koje sam usavršavao godinama kao profesionalni fotograf.</span>
+            </div>
+          </div>
+          <div class="omeni-step">
+            <div class="omeni-step-icon">03</div>
+            <div class="omeni-step-body">
+              <strong>Image-to-Image proces</strong>
+              <span>Koristeći AI kao vrhunski alat, radim na rafiniranju svakog piksela dok ne postignem razinu hiper-realizma koja širi granice mašte, zadržavajući integritet prave fotografije.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="omeni-quote">
+          <p>"Ja ne dopuštam algoritmu da vodi moju viziju; ja vodim njega."</p>
+        </div>
+
+        <div class="omeni-socials">
+          <a href="https://www.facebook.com/kezicvizuali.vg" target="_blank" class="social-btn">
+            <svg viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+            Službena Stranica
+          </a>
+          <a href="https://www.facebook.com/kezicvizuali/" target="_blank" class="social-btn">
+            <svg viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 22c-3.123 0-5.914-1.441-7.749-3.69.259-.588.783-.995 1.867-1.246 2.244-.518 4.459-.981 3.393-2.945-3.155-5.82-.899-9.119 2.489-9.119 3.322 0 5.634 3.177 2.489 9.119-1.035 1.952 1.1 2.416 3.393 2.945 1.082.25 1.61.655 1.871 1.241-1.836 2.253-4.628 3.695-7.753 3.695z"/></svg>
+            Privatni Profil
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gastro">
+    <div class="gastro-grid">
+      <div class="reveal">
+        <div class="gastro-badge">Ekskluzivna Ponuda</div>
+        <h2 class="section-title" style="color:var(--text);">Gastro Starter <em>Pack</em></h2>
+        <div class="divider"></div>
+        <p class="gastro-target">Idealno za restorane, kafiće i OPG-ove koji žele podići svoj vizualni identitet na višu razinu.</p>
+        <p style="color:var(--text-muted); margin-bottom:2rem; line-height:1.8;">All-in-one rješenje koje pokriva sve vaše potrebe za vrhunskom prezentacijom hrane i pića. Kombiniramo autorsku fotografiju, naprednu digitalnu obradu i grafički dizajn.</p>
+        <ul class="gastro-items">
+          <li>10 namjenskih vizuala hrane (styling + obrada)</li>
+          <li>Dizajn i lektura jelovnika (do 4 stranice)</li>
+          <li>3 AI unikatna vizuala (generirani ambijenti)</li>
+          <li>Koordinacija produkcije s tiskarom</li>
+        </ul>
+      </div>
+      <div class="gastro-price-box reveal">
+        <div class="gastro-price-label">Jednokratna investicija</div>
+        <div class="gastro-price-num">450 €</div>
+        <div class="gastro-price-note">Kompletan paket rješenja spremnih za korištenje.</div>
+        <a href="#kontakt" class="btn-primary" style="width:100%; text-align:center;">Zatraži Paket</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="usluge">
+    <div class="section-label">Ekspertiza</div>
+    <h2 class="section-title">Naše <em>Usluge</em></h2>
+    <div class="divider"></div>
+    <div class="services-intro reveal">
+      <p>Bilo da radimo na brendiranju lokalnih restorana u Velikoj Gorici, dizajnu unikatnih plakata ili stvaranju digitalne umjetnosti, naš cilj je uvijek isti: produkcijski spremni vizuali najviše klase.</p>
+    </div>
+
+    <div class="services-tabs reveal">
+      <button class="tab-btn active" data-panel="1">Vizualne Komunikacije</button>
+      <button class="tab-btn" data-panel="2">Grafički Dizajn</button>
+      <button class="tab-btn" data-panel="3">Marketing & Web</button>
+      <button class="tab-btn" data-panel="4">AI Lab & Izdavaštvo</button>
+    </div>
+
+    <div class="services-panel active reveal" id="panel-1">
+      <div class="service-card">
+        <div class="service-icon">📸</div>
+        <h3 class="service-name">Gastro-Marketing Vizuali</h3>
+        <p class="service-desc">Produkcija autorskih vizuala, uključuje kreiranje sirovog materijala i naprednu digitalnu obradu.</p>
+        <div class="service-price">15,00 € / kom (min. 10)</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏛️</div>
+        <h3 class="service-name">Vizualizacija Interijera</h3>
+        <p class="service-desc">Digitalna vizualizacija interijera i arhitekture vrhunske kvalitete (do 15 vizuala po objektu).</p>
+        <div class="service-price">150,00 € / po objektu</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎬</div>
+        <h3 class="service-name">Dokumentiranje Događanja</h3>
+        <p class="service-desc">Vizualno praćenje i PR izvještavanje sa manifestacija i evenata na terenu.</p>
+        <div class="service-price">80,00 € (1. sat) / 50,00 € (slj.)</div>
+      </div>
+    </div>
+
+    <div class="services-panel reveal" id="panel-2">
+      <div class="service-card">
+        <div class="service-icon">✒️</div>
+        <h3 class="service-name">Vizualni Identitet</h3>
+        <p class="service-desc">Izrada cjelokupnog identiteta brenda, uključujući logotip i knjigu grafičkih standarda.</p>
+        <div class="service-price">od 250,00 €</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📖</div>
+        <h3 class="service-name">Dizajn Jelovnika</h3>
+        <p class="service-desc">Profesionalni dizajn jelovnika i cjenika uz mogućnost lekture i jezične korekcije.</p>
+        <div class="service-price">40,00 € / stranici</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📦</div>
+        <h3 class="service-name">Ambalaža i Promocija</h3>
+        <p class="service-desc">Dizajn naljepnica za proizvode, promotivnih letaka, plakata i brošura.</p>
+        <div class="service-price">od 60,00 € do 100,00 €</div>
+      </div>
+    </div>
+
+    <div class="services-panel reveal" id="panel-3">
+      <div class="service-card">
+        <div class="service-icon">💻</div>
+        <h3 class="service-name">Izrada Web Stranica</h3>
+        <p class="service-desc">Dizajn i postavljanje jednostavnih "Landing" stranica ili Payhip online trgovina.</p>
+        <div class="service-price">350,00 € (Landing)</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3 class="service-name">Vođenje Društvenih Mreža</h3>
+        <p class="service-desc">Mjesečni paketi vođenja Facebook i Instagram profila uz izradu promotivnih kampanja.</p>
+        <div class="service-price">od 300,00 € / mj.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">✍️</div>
+        <h3 class="service-name">PR & Copywriting</h3>
+        <p class="service-desc">PR savjetovanje, pisanje autorskih tekstova, promo-članaka i komunikacijska strategija.</p>
+        <div class="service-price">40,00 € / tekst</div>
+      </div>
+    </div>
+
+    <div class="services-panel reveal" id="panel-4">
+      <div class="service-card">
+        <div class="service-icon">🔮</div>
+        <h3 class="service-name">AI Creative Poster</h3>
+        <p class="service-desc">Spoj grafike i dizajna potpomognut umjetnom inteligencijom za unikatne plakate.</p>
+        <div class="service-price">45,00 – 75,00 €</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔄</div>
+        <h3 class="service-name">Background Swap</h3>
+        <p class="service-desc">Generativna promjena ambijenta na vašim fotografijama uz zadržavanje subjekta.</p>
+        <div class="service-price">20,00 – 35,00 €</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📚</div>
+        <h3 class="service-name">Edukacija & Izdavaštvo</h3>
+        <p class="service-desc">Individualna poduka primjene AI u poslovanju, te izrada digitalnih vodiča i PDF e-knjiga.</p>
+        <div class="service-price">60,00 € / sat (poduka)</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cjenik">
+    <div class="section-label">Transparentnost</div>
+    <h2 class="section-title">Cjenik <em>Usluga</em></h2>
+    <div class="divider"></div>
+    <div class="pricing-intro reveal">
+      <p>Sve cijene su izražene u eurima (€). Kezić Vizuali nisu u sustavu PDV-a. Prikazani cjenik je informativnog karaktera, a konačna cijena ovisi o specifičnostima projekta.</p>
+    </div>
+
+    <div class="pricing-category reveal">
+      <div class="pricing-category-title"><span class="cat-num">01</span> Vizualne Komunikacije</div>
+      <table class="pricing-table">
+        <tr>
+          <td>Produkcija autorskih vizuala za gastro-marketing <small>min. narudžba 10 komada</small></td>
+          <td>15,00 € <small>/ kom</small></td>
+        </tr>
+        <tr>
+          <td>Vizualno dokumentiranje događanja i PR <small>prvi sat / svaki sljedeći sat</small></td>
+          <td>80,00 € / 50,00 €</td>
+        </tr>
+        <tr>
+          <td>Digitalna vizualizacija interijera i arhitekture <small>do 15 vizuala po objektu</small></td>
+          <td>150,00 € <small>/ obj.</small></td>
+        </tr>
+        <tr>
+          <td>Izrada vizualnog sadržaja za kataloge i e-commerce</td>
+          <td>20,00 € <small>/ art.</small></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="pricing-category reveal">
+      <div class="pricing-category-title"><span class="cat-num">02</span> Grafički Dizajn i Priprema</div>
+      <table class="pricing-table">
+        <tr>
+          <td>Izrada vizualnog identiteta <small>Logotip + knjiga standarda</small></td>
+          <td>od 250,00 €</td>
+        </tr>
+        <tr>
+          <td>Dizajn jelovnika i cjenika</td>
+          <td>40,00 € <small>/ str.</small></td>
+        </tr>
+        <tr>
+          <td>Dizajn promotivnog letka, brošure ili plakata</td>
+          <td>od 60,00 €</td>
+        </tr>
+        <tr>
+          <td>Dizajn ambalaže i naljepnica za proizvode</td>
+          <td>od 100,00 €</td>
+        </tr>
+        <tr>
+          <td>Dizajn vizitke, zahvalnice ili pozivnice</td>
+          <td>30,00 €</td>
+        </tr>
+        <tr>
+          <td>Prijelom i grafička priprema publikacija</td>
+          <td>25,00 € <small>/ str.</small></td>
+        </tr>
+        <tr>
+          <td>Lektura i jezična korekcija teksta <small>kartica 1.500 znakova</small></td>
+          <td>5,00 €</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="pricing-category reveal">
+      <div class="pricing-category-title"><span class="cat-num">03</span> Digitalna Rješenja, Savjetovanje i Eventi</div>
+      <table class="pricing-table">
+        <tr>
+          <td>Izrada Landing stranice (jednostavna web stranica)</td>
+          <td>350,00 €</td>
+        </tr>
+        <tr>
+          <td>Organizacija izložbi, manifestacija i evenata</td>
+          <td>od 600,00 €* <small>*i niže, ovisno o projektu</small></td>
+        </tr>
+        <tr>
+          <td>Postavljanje i optimizacija Payhip online trgovine</td>
+          <td>150,00 €</td>
+        </tr>
+        <tr>
+          <td>Tehničko održavanje web stranice</td>
+          <td>40,00 € <small>/ mj.</small></td>
+        </tr>
+        <tr>
+          <td>Strateško vizualno savjetovanje (Visual Audit)</td>
+          <td>60,00 € <small>/ sat</small></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="pricing-note reveal">
+      <strong>Napomena:</strong> Usluga tiska i materijala nije uključena u cijenu dizajna. Sve cijene odnose se na izradu digitalnog rješenja. Kao partner Print Centra Velika Gorica, možemo ponuditi kompletnu uslugu po principu "ključ u ruke" (dizajn + tisak) prema posebnim uvjetima.
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <div class="section-label">Povežimo se</div>
+    <h2 class="section-title">Stupite u <em>Kontakt</em></h2>
+    <div class="divider"></div>
+    
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>Spremni ste podići vizualni identitet svog poslovanja na višu razinu? Pošaljite nam upit i odgovorit ćemo vam u najkraćem mogućem roku s prijedlogom rješenja.</p>
+        
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉</div>
+          <div class="contact-detail-text">
+            <label>Email Adresa</label>
+            <span>kezicvizuali@gmail.com</span>
+          </div>
+        </div>
+        
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🌍</div>
+          <div class="contact-detail-text">
+            <label>Područje Rada</label>
+            <span><strong>Terenski rad:</strong> Cijela Hrvatska i Slovenija<br><strong>Online usluge:</strong> Globalno (Bez ograničenja)</span>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🕒</div>
+          <div class="contact-detail-text">
+            <label>Radno Vrijeme</label>
+            <span>Pon - Pet: 08:00 - 16:00<br>Subota: Prema dogovoru<br>Nedjelja: Zatvoreno (neradna)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap reveal">
+        <form class="contact-form" id="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ime i Prezime / Tvrtka</label>
+              <input type="text" placeholder="Vaše ime" required>
+            </div>
+            <div class="form-group">
+              <label>Email Adresa</label>
+              <input type="email" placeholder="vas@email.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Vrsta Usluge</label>
+            <select>
+              <option>Gastro Starter Pack</option>
+              <option>Grafički Dizajn (Logo, Jelovnici...)</option>
+              <option>Izrada Web Stranice</option>
+              <option>Vizualne Komunikacije / AI Art</option>
+              <option>Organizacija Evenata</option>
+              <option>Ostalo / Opći upit</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Vaša Poruka</label>
+            <textarea placeholder="Ukratko opišite što vam je potrebno..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="margin-top:0.5rem; width:fit-content;">Pošalji Upit</button>
+          <div class="form-note">Vaši podaci su sigurni i koriste se isključivo za odgovor na upit.</div>
+        </form>
+        <div id="form-success">
+          Hvala vam! Vaš upit je uspješno poslan. Javit ćemo vam se uskoro.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid reveal">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">Kezić<span>Vizuali</span></a>
+        <p>Studio za vizualne komunikacije i dizajn. Spoj stare škole majstorstva i tehnologije budućnosti.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Brzi Linkovi</h5>
+        <ul>
+          <li><a href="#hero">Početna</a></li>
+          <li><a href="#o-meni">O meni</a></li>
+          <li><a href="#usluge">Usluge</a></li>
+          <li><a href="#gastro">Gastro Paket</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Društvene Mreže</h5>
+        <ul>
+          <li><a href="https://www.facebook.com/kezicvizuali.vg" target="_blank">Službena Stranica</a></li>
+          <li><a href="https://www.facebook.com/kezicvizuali/" target="_blank">Privatni Profil</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom reveal">
+      <p>&copy; 2026 Kezić Vizuali. Sva prava pridržana.</p>
+      <p>Dizajnirano s <span>✦</span> u Velikoj Gorici.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobilni Menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Usluge - tabovi
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.services-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+      });
+    });
+
+    // Animacije prilikom skrolanja (Scroll reveal)
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Kontakt Forma - simulacija slanja
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      this.style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    });
+
+    // Zatvaranje navigacije prilikom skrolanja na mobitelu
+    window.addEventListener('scroll', () => {
+      if(navLinks.classList.contains('open')) {
+          navLinks.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>
