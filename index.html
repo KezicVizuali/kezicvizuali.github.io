@@ -44,7 +44,26 @@
     font-weight: 300;
     overflow-x: hidden;
   }
+/* Animacija dima */
+.smoke-overlay {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  pointer-events: none; 
+  z-index: -1; /* OVO JE KLJUČNO: Stavljamo ga u pozadinu da ne smeta tekstu */
+  background-image: url('smoke-overlay.png');
+  background-repeat: repeat;
+  animation: drift 100s linear infinite;
+  opacity: 0.08; 
+}
 
+@keyframes drift {
+  from { background-position: 0 0; }
+  to { background-position: 1000px 1000px; }
+}
+}
   /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -305,7 +324,12 @@
 </style>
 </head>
 <body>
+<body>
+  <div class="smoke-overlay"></div> <!-- UBACI GA OVDJE, ODMAH NA VRH -->
 
+  <nav>
+    <a href="#" class="nav-logo">
+    ...
   <nav>
     <a href="#" class="nav-logo">
       <img src="Kezić vizuali transparent xl.png" alt="Kezić Vizuali Logo" style="height: 120px; width: auto; object-fit: contain; display: block;">
