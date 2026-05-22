@@ -15,51 +15,605 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --gold: #c9a84c;
-    --gold-light: #e8c96a;
-    --gold-dim: rgba(201,168,76,0.15);
-    --bg: #0c0c0b;
-    --bg2: #131310;
-    --bg3: #1a1a16;
-    --text: #f0ead8;
-    --text-muted: #9a9080;
-    --border: rgba(201,168,76,0.18);
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --sans: 'DM Sans', system-ui, sans-serif;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8c96a;
+  --gold-pale: #f5e9c8;
+  --gold-dim: rgba(201,168,76,0.12);
+  --gold-glow: rgba(201,168,76,0.06);
+  --bg: #080807;
+  --bg2: #0f0f0d;
+  --bg3: #161614;
+  --bg4: #1c1c19;
+  --text: #f0ead8;
+  --text-muted: #8a8070;
+  --text-faint: #5a5448;
+  --border: rgba(201,168,76,0.14);
+  --border-hover: rgba(201,168,76,0.3);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ── CURSOR ── */
+*, *::before, *::after { cursor: none !important; }
+#cursor {
+  position: fixed; width: 8px; height: 8px;
+  background: var(--gold); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.25s, height 0.25s, background 0.25s;
+  will-change: transform;
+}
+#cursor-ring {
+  position: fixed; width: 32px; height: 32px;
+  border: 1px solid rgba(201,168,76,0.5); border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, width 0.25s, height 0.25s, border-color 0.25s;
+  will-change: transform;
+}
+body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 14px; height: 14px; }
+body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 44px; height: 44px; border-color: rgba(201,168,76,0.9); }
+
+/* ── AMBIENT PARTICLES ── */
+#particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.particle {
+  position: absolute; width: 1px; height: 1px;
+  background: var(--gold); border-radius: 50%;
+  animation: float-up linear infinite;
+  opacity: 0;
+}
+@keyframes float-up {
+  0% { opacity: 0; transform: translateY(100vh) translateX(0); }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-20px) translateX(var(--dx, 20px)); }
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 200px;
+  opacity: 0.35;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5%;
+  height: 72px;
+  background: rgba(8,8,7,0.88);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s, border-color 0.3s;
+}
+nav.scrolled { background: rgba(8,8,7,0.97); border-color: rgba(201,168,76,0.22); }
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+  text-decoration: none;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--gold);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 0.5rem 1.4rem;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.25s, color 0.25s, box-shadow 0.25s;
+  position: relative; overflow: hidden;
+}
+.nav-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--gold); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.25s ease; z-index: -1;
+}
+.nav-cta:hover { color: #080807; }
+.nav-cta:hover::before { transform: scaleX(1); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer !important; background: none; border: none; padding: 4px; }
+.hamburger span { display: block; width: 24px; height: 1px; background: var(--text); transition: 0.3s; }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 5% 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 90% 70% at 80% 20%, rgba(201,168,76,0.055) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 90% at 5% 90%, rgba(201,168,76,0.035) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(201,168,76,0.015) 0%, transparent 70%),
+    linear-gradient(170deg, #0a0a08 0%, #0f0f0c 40%, #080807 100%);
+}
+.hero-lines {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+  background-size: 100px 100px;
+  mask-image: radial-gradient(ellipse 80% 80% at 80% 30%, black 30%, transparent 80%);
+}
+.hero-content { position: relative; z-index: 2; max-width: 1000px; }
+.hero-eyebrow {
+  font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 1.2rem;
+  opacity: 0; animation: fade-up 0.8s 0.2s ease forwards;
+}
+.hero-eyebrow::before { content: ''; display: block; width: 50px; height: 1px; background: linear-gradient(to right, transparent, var(--gold)); }
+.hero-eyebrow::after { content: ''; display: block; width: 50px; height: 1px; background: linear-gradient(to left, transparent, var(--gold)); }
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  opacity: 0; animation: fade-up 0.9s 0.4s ease forwards;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-title .line2 { display: block; padding-left: 6rem; }
+
+.hero-sub {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 620px;
+  margin-bottom: 3rem;
+  line-height: 1.85;
+  font-weight: 300;
+  opacity: 0; animation: fade-up 0.9s 0.6s ease forwards;
+}
+
+.hero-btns {
+  display: flex; gap: 1.2rem; flex-wrap: wrap;
+  opacity: 0; animation: fade-up 0.9s 0.8s ease forwards;
+}
+.btn-primary {
+  background: var(--gold); color: #080807; border: none; padding: 1rem 2.2rem;
+  font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.14em;
+  text-transform: uppercase; font-weight: 500; text-decoration: none;
+  transition: background 0.25s, transform 0.2s, box-shadow 0.25s; display: inline-block;
+  position: relative; overflow: hidden;
+}
+.btn-primary::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0.15);
+  transform: translateX(-100%) skewX(-15deg);
+  transition: transform 0.4s ease;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.3); }
+.btn-primary:hover::after { transform: translateX(100%) skewX(-15deg); }
+.btn-outline {
+  background: transparent; color: var(--text);
+  border: 1px solid rgba(240,234,216,0.2);
+  padding: 1rem 2.2rem; font-family: var(--sans); font-size: 0.8rem;
+  letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+  transition: border-color 0.25s, color 0.25s, transform 0.2s; display: inline-block;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+/* HERO STATS */
+.hero-stats {
+  position: absolute; right: 5%; bottom: 12%;
+  display: flex; flex-direction: column; gap: 2rem;
+  opacity: 0; animation: fade-left 0.9s 1s ease forwards;
+  z-index: 2;
+}
+.hero-stat { text-align: right; }
+.hero-stat-num { font-family: var(--serif); font-size: 2.8rem; font-weight: 300; color: var(--gold); line-height: 1; }
+.hero-stat-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-faint); margin-top: 0.3rem; }
+.hero-stat-divider { width: 100%; height: 1px; background: var(--border); }
+
+/* HERO SCROLL HINT */
+.scroll-hint {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  opacity: 0; animation: fade-up 1s 1.2s ease forwards;
+  z-index: 2;
+}
+.scroll-hint span { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-faint); }
+.scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scroll-pulse 1.8s ease-in-out infinite;
+}
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.1); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-left {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ── MARQUEE STRIP ── */
+.marquee-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  overflow: hidden;
+  padding: 0.9rem 0;
+  position: relative; z-index: 2;
+}
+.marquee-track {
+  display: flex; gap: 0;
+  animation: marquee 30s linear infinite;
+  width: max-content;
+}
+.marquee-item {
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 0 2.5rem;
+  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-faint); white-space: nowrap;
+}
+.marquee-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── SECTIONS ── */
+section { padding: 8rem 5%; position: relative; z-index: 2; }
+.section-label {
+  font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.2rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.section-label::before { content:''; width: 36px; height: 1px; background: linear-gradient(to right, transparent, var(--gold)); display: block; }
+.section-title {
+  font-family: var(--serif); font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-weight: 300; line-height: 1.1; margin-bottom: 1.5rem;
+}
+.section-title em { font-style: italic; color: var(--gold); }
+.divider {
+  width: 50px; height: 1px;
+  background: linear-gradient(to right, var(--gold), transparent);
+  margin: 1.5rem 0;
+}
+
+/* ── O MENI ── */
+#o-meni { background: var(--bg); }
+.omeni-grid { display: grid; grid-template-columns: 1fr 1.7fr; gap: 6rem; align-items: start; }
+.omeni-photo-wrap { position: sticky; top: 100px; }
+.omeni-photo-frame {
+  position: relative;
+}
+.omeni-photo-frame::before {
+  content: '';
+  position: absolute; top: -12px; left: -12px; right: 12px; bottom: 12px;
+  border: 1px solid var(--border);
+  z-index: 0;
+}
+.omeni-photo-frame::after {
+  content: '';
+  position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px;
+  background: var(--gold-dim); z-index: 0;
+}
+.omeni-photo {
+  width: 100%; aspect-ratio: 3/4; object-fit: cover;
+  display: block; position: relative; z-index: 1;
+  border: 1px solid var(--border);
+  filter: grayscale(15%) contrast(1.05);
+}
+.omeni-text p { color: var(--text-muted); margin-bottom: 1.2rem; line-height: 1.9; }
+.omeni-text p strong { color: var(--text); font-weight: 400; }
+.omeni-philosophy { margin: 2.5rem 0; }
+.omeni-philosophy-title {
+  font-family: var(--serif); font-size: 1.35rem; font-weight: 600;
+  margin-bottom: 1.5rem; padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border); color: var(--text);
+}
+.omeni-step {
+  display: flex; gap: 1.2rem; margin-bottom: 1.4rem; align-items: flex-start;
+  padding: 1rem 1.2rem; border: 1px solid transparent;
+  transition: border-color 0.3s, background 0.3s;
+}
+.omeni-step:hover { border-color: var(--border); background: var(--bg2); }
+.omeni-step-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  border: 1px solid var(--gold); color: var(--gold);
+  font-size: 0.68rem; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+  letter-spacing: 0.05em; margin-top: 0.1rem;
+  font-family: var(--serif); font-style: italic; font-size: 1rem;
+}
+.omeni-step-body strong { display: block; font-size: 0.92rem; color: var(--text); font-weight: 400; margin-bottom: 0.3rem; }
+.omeni-step-body span { font-size: 0.84rem; color: var(--text-muted); line-height: 1.7; }
+.omeni-quote {
+  border-left: 2px solid var(--gold); padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, var(--bg2), var(--bg3));
+  margin-top: 2.5rem; position: relative;
+}
+.omeni-quote::before {
+  content: '"'; font-family: var(--serif); font-size: 6rem; color: var(--gold);
+  opacity: 0.12; position: absolute; top: -1rem; left: 1rem; line-height: 1;
+}
+.omeni-quote p { font-family: var(--serif); font-size: 1.05rem; font-style: italic; color: var(--text); margin-bottom: 0; line-height: 1.8; position: relative; z-index: 1; }
+
+/* ── WEB OFFER BANNER ── */
+.web-offer-banner {
+  margin: 0 5%; position: relative; z-index: 2;
+  background: linear-gradient(135deg, #0d0d0a 0%, #141410 60%, #0a0a08 100%);
+  border: 1px solid var(--border);
+  padding: 3.5rem 4rem;
+  display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center;
+  overflow: hidden;
+}
+.web-offer-banner::before {
+  content: '';
+  position: absolute; right: -60px; top: -60px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+}
+.web-offer-badge {
+  display: inline-block; background: var(--gold); color: #080807;
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.3rem 0.9rem; margin-bottom: 1rem; font-weight: 500;
+}
+.web-offer-title { font-family: var(--serif); font-size: 2.2rem; font-weight: 300; margin-bottom: 0.75rem; }
+.web-offer-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+.web-offer-features {
+  display: flex; gap: 1.5rem; flex-wrap: wrap;
+}
+.web-offer-feat {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.82rem; color: var(--text-muted);
+}
+.web-offer-feat::before { content: '✓'; color: var(--gold); font-weight: 500; }
+.web-offer-price-box { text-align: center; flex-shrink: 0; }
+.web-offer-price-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; }
+.web-offer-price { font-family: var(--serif); font-size: 4.5rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 1.5rem; }
+.web-offer-price sup { font-size: 1.8rem; vertical-align: super; }
+
+/* ── GASTRO ── */
+#gastro {
+  background: linear-gradient(160deg, #0f0f0c 0%, #141410 50%, #0a0a08 100%);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.gastro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.gastro-badge {
+  display: inline-block; background: transparent; border: 1px solid var(--gold);
+  color: var(--gold); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 0.4rem 1.1rem; margin-bottom: 1.5rem;
+}
+.gastro-items { list-style: none; margin: 2rem 0; }
+.gastro-items li {
+  padding: 0.9rem 0; border-bottom: 1px solid rgba(201,168,76,0.08);
+  font-size: 0.88rem; display: flex; align-items: flex-start; gap: 1rem;
+  transition: padding-left 0.2s;
+}
+.gastro-items li:hover { padding-left: 0.5rem; }
+.gastro-check { color: var(--gold); flex-shrink: 0; margin-top: 0.1rem; }
+.gastro-item-text { flex: 1; }
+.gastro-item-text small { display: block; font-size: 0.76rem; color: var(--text-faint); margin-top: 0.2rem; }
+.gastro-price-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 3rem;
+  position: relative; overflow: hidden;
+}
+.gastro-price-box::after {
+  content: '';
+  position: absolute; bottom: -30px; right: -30px;
+  width: 150px; height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+}
+.gastro-price-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.75rem; }
+.gastro-price-num { font-family: var(--serif); font-size: 5rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 0.5rem; }
+.gastro-price-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+
+/* ── CJENIK ── */
+#cjenik { background: var(--bg2); }
+.pricing-intro { max-width: 640px; margin-bottom: 4.5rem; }
+.pricing-intro p { color: var(--text-muted); }
+
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2px; background: var(--border); border: 1px solid var(--border); }
+.pricing-category {
+  background: var(--bg2);
+  padding: 2rem 2.2rem;
+  transition: background 0.3s;
+}
+.pricing-category:hover { background: var(--bg3); }
+.pricing-category-header { margin-bottom: 1.5rem; }
+.pricing-category-num { font-family: var(--serif); font-size: 3rem; font-weight: 300; color: rgba(201,168,76,0.15); line-height: 1; margin-bottom: 0.25rem; }
+.pricing-category-title {
+  font-family: var(--serif); font-size: 1.1rem; font-weight: 600;
+  padding-top: 0.5rem; border-top: 1px solid var(--border); color: var(--gold);
+}
+.pricing-table { width: 100%; border-collapse: collapse; }
+.pricing-table tr { border-bottom: 1px solid rgba(201,168,76,0.06); }
+.pricing-table tr:last-child { border-bottom: none; }
+.pricing-table td { padding: 0.75rem 0; font-size: 0.84rem; vertical-align: top; }
+.pricing-table td:first-child { color: var(--text-muted); padding-right: 12px; line-height: 1.5; }
+.pricing-table td:last-child {
+  text-align: right; color: var(--gold); font-family: var(--serif);
+  font-size: 0.92rem; white-space: nowrap; font-weight: 600; padding-left: 8px;
+}
+.pricing-table td small { display: block; font-size: 0.7rem; color: var(--text-faint); margin-top: 0.2rem; }
+.pricing-note {
+  background: var(--bg3); border-left: 2px solid var(--gold);
+  padding: 1.5rem 2rem; font-size: 0.84rem; color: var(--text-muted);
+  line-height: 1.8; margin-top: 2px;
+}
+.pricing-note strong { color: var(--text); font-weight: 400; }
+
+/* ── KONTAKT ── */
+#kontakt { background: var(--bg); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem; }
+.contact-info p { color: var(--text-muted); margin-bottom: 2.5rem; line-height: 1.9; }
+.contact-detail {
+  display: flex; align-items: flex-start; gap: 1.2rem;
+  margin-bottom: 1.5rem; padding: 1rem 1.2rem;
+  border: 1px solid transparent;
+  transition: border-color 0.3s, background 0.3s;
+}
+.contact-detail:hover { border-color: var(--border); background: var(--bg2); }
+.contact-detail-icon {
+  width: 42px; height: 42px; border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; color: var(--gold); flex-shrink: 0;
+  transition: background 0.3s;
+}
+.contact-detail:hover .contact-detail-icon { background: var(--gold-dim); }
+.contact-detail-text label { display: block; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.3rem; }
+.contact-detail-text span { font-size: 0.9rem; color: var(--text); line-height: 1.6; }
+
+.contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-group label { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); }
+.form-group input, .form-group textarea, .form-group select {
+  background: var(--bg2); border: 1px solid var(--border); color: var(--text);
+  font-family: var(--sans); font-size: 0.9rem; padding: 0.85rem 1.1rem;
+  outline: none; transition: border-color 0.25s, background 0.25s;
+  appearance: none;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  border-color: var(--gold); background: var(--bg3);
+}
+.form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-faint); }
+.form-group textarea { min-height: 130px; resize: none; }
+#form-success {
+  display: none; background: rgba(201,168,76,0.08);
+  border: 1px solid var(--gold); padding: 1.2rem 1.5rem;
+  color: var(--gold); font-size: 0.9rem;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2); border-top: 1px solid var(--border);
+  padding: 4rem 5% 2.5rem; position: relative; z-index: 2;
+}
+footer::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.footer-brand p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.8; max-width: 260px; margin-top: 1.2rem; }
+.footer-col h5 { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 0.65rem; }
+.footer-col ul li a { font-size: 0.84rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.footer-col ul li a:hover { color: var(--gold); }
+.footer-bottom {
+  border-top: 1px solid rgba(201,168,76,0.08); padding-top: 2rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-bottom p, .footer-bottom a { font-size: 0.78rem; color: var(--text-faint); text-decoration: none; }
+.footer-bottom a:hover { color: var(--gold); }
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left { opacity: 0; transform: translateX(-36px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right { opacity: 0; transform: translateX(36px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ── MOBILE ── */
+@media (max-width: 1100px) {
+  .hero-stats { display: none; }
+}
+@media (max-width: 900px) {
+  .hero-title .line2 { padding-left: 2rem; }
+  .omeni-grid, .gastro-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .omeni-photo-wrap { position: static; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .web-offer-banner { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem; margin: 0 5%; }
+  .web-offer-price-box { text-align: left; }
+  .nav-links {
+    position: fixed; top: 72px; left: 0; right: 0;
+    background: rgba(8,8,7,0.98);
+    flex-direction: column; gap: 0; padding: 0;
+    border-bottom: 1px solid var(--border);
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transition: clip-path 0.4s ease;
   }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.7; font-weight: 300; overflow-x: hidden; }
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 68px; background: rgba(12,12,11,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
-  .nav-logo { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; letter-spacing: 0.04em; color: var(--gold); text-decoration: none; display: flex; align-items: center; gap: 0.6rem; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 0.45rem 1.2rem; font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: background 0.2s, color 0.2s; }
-  .nav-cta:hover { background: var(--gold); color: #0c0c0b; }
-  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-  .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--text); transition: 0.3s; }
-  #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 5% 8%; position: relative; overflow: hidden; background-attachment: fixed; background-position: center; }
-  .hero-bg { position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 60% at 75% 40%, rgba(201,168,76,0.07) 0%, transparent 70%), radial-gradient(ellipse 50% 80% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 60%), linear-gradient(160deg, #0c0c0b 0%, #141410 50%, #0c0c0b 100%); }
-  .hero-grid { position: absolute; inset: 0; z-index: 0; opacity: 0.04; background-image: linear-gradient(var(--gold) 1px, transparent 1px), linear-gradient(90deg, var(--gold) 1px, transparent 1px); background-size: 80px 80px; }
-  .hero-content { position: relative; z-index: 1; max-width: 900px; }
-  .hero-title { font-family: var(--serif); font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 1.5rem; }
-  .hero-title em { font-style: italic; color: var(--gold); }
-  .btn-primary { background: var(--gold); color: #0c0c0b; border: none; padding: 0.85rem 2rem; font-family: var(--sans); font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
-  section { padding: 7rem 5%; }
-  .reveal { opacity: 0; transform: translateY(40px) scale(0.98); transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  .reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
-  @media (max-width: 900px) { .nav-links { position: fixed; top: 68px; left: 0; right: 0; background: rgba(12,12,11,0.98); flex-direction: column; gap: 0; padding: 0; border-bottom: 1px solid var(--border); clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transition: clip-path 0.4s ease; } .nav-links.open { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); } .nav-links a { display: block; padding: 1.5rem 5%; text-align: center; } .nav-cta { display: none; } .hamburger { display: flex; } }
+  .nav-links.open { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  .nav-links li { border-bottom: 1px solid rgba(201,168,76,0.06); }
+  .nav-links a { display: block; padding: 1.5rem 5%; }
+  .nav-links a::after { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+}
+@media (max-width: 600px) {
+  section { padding: 5rem 5%; }
+  .hero-title { font-size: clamp(2.4rem, 10vw, 3rem); }
+  .hero-btns { flex-direction: column; }
+  .btn-primary, .btn-outline { text-align: center; }
+  .pricing-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
-  <nav>
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+  <div id="particles"></div>
+
+  <nav id="navbar">
     <a href="#" class="nav-logo">
-      <img src="Kezić vizuali transparent xl.png" alt="Kezić Vizuali Logo" style="height: 120px; width: auto; object-fit: contain; display: block;">
+      <img src="Kezić vizuali transparent xl.png" alt="Kezić Vizuali Logo" style="height: 110px; width: auto; object-fit: contain; display: block;">
     </a>
-    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
     <ul class="nav-links" id="nav-links">
       <li><a href="#o-meni">O nama</a></li>
       <li><a href="#cjenik">Usluge i Cjenik</a></li>
@@ -70,24 +624,495 @@
 
   <header id="hero">
     <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-content reveal">
-      <h1 class="hero-title">Vizuali koji <em>pričaju priču</em> vašeg brenda.</h1>
+    <div class="hero-lines"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Digitalni Kreativni Studio &mdash; Velika Gorica</div>
+      <h1 class="hero-title">
+        Vizuali koji<br>
+        <span class="line2">pričaju <em>priču</em></span><br>
+        vašeg brenda.
+      </h1>
+      <p class="hero-sub">
+        Spoj vrhunskog grafičkog dizajna, napredne AI tehnologije i strateškog marketinga — sve na jednom mjestu, za lokalne poduzetnike koji misle globalno.
+      </p>
       <div class="hero-btns">
         <a href="#cjenik" class="btn-primary">Istraži Usluge</a>
+        <a href="#kontakt" class="btn-outline">Kontaktirajte Nas</a>
       </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">15+</div>
+        <div class="hero-stat-label">Godina iskustva</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">9</div>
+        <div class="hero-stat-label">Kategorija usluga</div>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">HR</div>
+        <div class="hero-stat-label">+ Globalno online</div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>Pomakni</span>
+      <div class="scroll-line"></div>
     </div>
   </header>
 
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-track" id="marquee">
+      <div class="marquee-item"><span class="marquee-dot"></span>Fotografija</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>AI Art</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>Grafički Dizajn</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>Web Development</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>Gastro Marketing</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>Branding</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>PR & Komunikacije</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>Edukacija</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>Fotografija</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>AI Art</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>Grafički Dizajn</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>Web Development</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>Gastro Marketing</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>Branding</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>PR & Komunikacije</div>
+      <div class="marquee-item"><span class="marquee-dot"></span>Edukacija</div>
+    </div>
+  </div>
+
+  <section id="o-meni">
+    <div class="omeni-grid">
+      <div class="omeni-photo-wrap reveal-left">
+        <div class="omeni-photo-frame">
+          <img src="IMG_20260321_233803_378.jpg" alt="Krunoslav Kezić" class="omeni-photo">
+        </div>
+      </div>
+      <div class="omeni-text reveal">
+        <div class="section-label">O meni | KEZIĆ VIZUALI</div>
+        <h2 class="section-title">Tamo gdje iskustvo <em>susreće inovaciju</em></h2>
+        <div class="divider"></div>
+        <p>Moje ime je <strong>Krunoslav Kezić</strong>, a moj kreativni put započeo je prije više od 15 godina iza objektiva fotoaparata. Kroz to desetljeće i pol, naučio sam da fotografija nije samo pritisak na gumb — to je razumijevanje svjetla, hvatanje teksture i pričanje priče koja ne treba riječi.</p>
+        <p>Danas, kroz svoj obrt Kezić Vizuali, tu istu strast i profesionalnu preciznost unosim u novu eru vizualnih komunikacija.</p>
+        
+        <div class="omeni-philosophy">
+          <div class="omeni-philosophy-title">Moja filozofija: Umjetnost vođena ljudskim okom</div>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.5rem;">U svijetu prepavljenom generičkim AI vizualima, moj pristup je bitno drugačiji. Ja ne dopuštam algoritmu da vodi moju viziju — ja vodim njega.</p>
+          
+          <div class="omeni-step reveal reveal-delay-1">
+            <div class="omeni-step-icon">I</div>
+            <div class="omeni-step-body">
+              <strong>Autentična baza</strong>
+              <span>Svaki moj rad počinje s mojom autorskom fotografijom — originalni snimci kao strukturna referenca i temelj.</span>
+            </div>
+          </div>
+          <div class="omeni-step reveal reveal-delay-2">
+            <div class="omeni-step-icon">II</div>
+            <div class="omeni-step-body">
+              <strong>Tehnička preciznost</strong>
+              <span>Napredne tehnike osvjetljenja, kontrola dubinske oštrine i autentične teksture usavršavane godinama profesionalnog rada.</span>
+            </div>
+          </div>
+          <div class="omeni-step reveal reveal-delay-3">
+            <div class="omeni-step-icon">III</div>
+            <div class="omeni-step-body">
+              <strong>Image-to-Image proces</strong>
+              <span>AI kao vrhunski alat — rafiniranje svakog piksela do hiper-realizma koji zadržava integritet prave fotografije, ali širi granice mašte.</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-family: var(--serif); font-size: 1.5rem; color: var(--gold); margin: 2.5rem 0 1rem;">Zašto Kezić Vizuali?</h3>
+        <p>Bilo da radimo na brendiranju lokalnih restorana u Velikoj Gorici, dizajnu unikatnih plakata ili stvaranju digitalne umjetnosti za globalno tržište — naš cilj je uvijek isti: produkcijski spremni vizuali najviše klase.</p>
+        <p>Kada surađujete s nama, ne dobivate samo digitalnu datoteku. Dobivate komad vizualne umjetnosti koji je rezultat 15 godina promatranja svijeta kroz tražilo fotoaparata.</p>
+
+        <div class="omeni-quote">
+          <p>"Kao tim strastvenih vizionara, posvećeni smo tome da svaki projekt tretiramo s individualnom pažnjom. Naša misija je transformirati vaše ideje u vizualne koncepte koji ne samo da privlače poglede, već i ostvaruju mjerljive poslovne rezultate."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEB OFFER BANNER -->
+  <div class="web-offer-banner reveal">
+    <div>
+      <div class="web-offer-badge">Web Development</div>
+      <div class="web-offer-title">Ultra-brza web rješenja<br>bez <em style="font-family: var(--serif); font-style: italic; color: var(--gold);">mjesečnih troškova</em></div>
+      <div class="web-offer-desc">Moderna, sigurna i brza statička web stranica — jednom platite, zauvijek vaše.</div>
+      <div class="web-offer-features">
+        <div class="web-offer-feat">Ultra-brzo učitavanje</div>
+        <div class="web-offer-feat">Bez hostinga</div>
+        <div class="web-offer-feat">Visoka sigurnost</div>
+        <div class="web-offer-feat">Mobile-first</div>
+      </div>
+    </div>
+    <div class="web-offer-price-box">
+      <div class="web-offer-price-label">Od samo</div>
+      <div class="web-offer-price"><sup>€</sup>500</div>
+      <a href="#kontakt" class="btn-primary" style="display: block; text-align: center;">Zatražite Ponudu</a>
+    </div>
+  </div>
+
+  <section id="gastro">
+    <div class="gastro-grid">
+      <div class="reveal-left">
+        <div class="gastro-badge">Ekskluzivna Ponuda</div>
+        <h2 class="section-title" style="color: var(--text);">Gastro Starter <em>Pack</em></h2>
+        <div class="divider"></div>
+        <p style="color: var(--text-muted); font-style: italic; font-size: 0.88rem; margin-bottom: 0.5rem;">Idealno za restorane, kafiće i OPG-ove.</p>
+        <ul class="gastro-items">
+          <li>
+            <span class="gastro-check">✓</span>
+            <div class="gastro-item-text">
+              10 namjenskih vizuala hrane
+              <small>Styling + napredna digitalna obrada</small>
+            </div>
+          </li>
+          <li>
+            <span class="gastro-check">✓</span>
+            <div class="gastro-item-text">
+              Dizajn i lektura jelovnika
+              <small>Do 4 stranice, priprema za tisak</small>
+            </div>
+          </li>
+          <li>
+            <span class="gastro-check">✓</span>
+            <div class="gastro-item-text">
+              3 AI unikatna vizuala
+              <small>Generirani ambijenti za društvene mreže</small>
+            </div>
+          </li>
+          <li>
+            <span class="gastro-check">✓</span>
+            <div class="gastro-item-text">
+              Koordinacija produkcije s tiskarom
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="gastro-price-box reveal-right">
+        <div class="gastro-price-label">Cijena paketa</div>
+        <div class="gastro-price-num">450 €</div>
+        <div class="gastro-price-sub">Sve uključeno — bez skrivenih troškova</div>
+        <a href="#kontakt" class="btn-primary" style="width:100%; text-align:center; display: block;">Zatraži Paket</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="cjenik">
+    <div class="section-label">Kompletna Ponuda</div>
+    <h2 class="section-title">Naše Usluge i <em>Cjenik</em></h2>
+    <div class="divider"></div>
+    <div class="pricing-intro reveal">
+      <p>Sve cijene su izražene u eurima (€). Kezić Vizuali nisu u sustavu PDV-a. Prikazani cjenik je informativnog karaktera — konačna cijena ovisi o specifičnostima projekta.</p>
+    </div>
+
+    <div class="pricing-grid reveal">
+      <div class="pricing-category">
+        <div class="pricing-category-header">
+          <div class="pricing-category-num">01</div>
+          <div class="pricing-category-title">Vizualne Komunikacije</div>
+        </div>
+        <table class="pricing-table">
+          <tr>
+            <td>Produkcija autorskih vizuala za gastro-marketing <small>min. narudžba 10 komada</small></td>
+            <td>15,00 € <small>/ kom</small></td>
+          </tr>
+          <tr>
+            <td>Vizualno dokumentiranje događanja i PR <small>prvi sat / svaki sljedeći sat</small></td>
+            <td>80,00 € / 50,00 €</td>
+          </tr>
+          <tr>
+            <td>Digitalna vizualizacija interijera i arhitekture <small>do 15 vizuala po objektu</small></td>
+            <td>150,00 € <small>/ obj.</small></td>
+          </tr>
+          <tr>
+            <td>Vizualni sadržaj za kataloge i e-commerce</td>
+            <td>20,00 € <small>/ art.</small></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="pricing-category">
+        <div class="pricing-category-header">
+          <div class="pricing-category-num">02</div>
+          <div class="pricing-category-title">Grafički Dizajn i Priprema</div>
+        </div>
+        <table class="pricing-table">
+          <tr><td>Dizajn jelovnika i cjenika</td><td>40,00 € <small>/ str.</small></td></tr>
+          <tr><td>Dizajn vizitke, zahvalnice ili pozivnice</td><td>30,00 €</td></tr>
+          <tr><td>Lektura i jezična korekcija <small>kartica 1.500 znakova</small></td><td>5,00 €</td></tr>
+          <tr><td>Vizualni identitet <small>Logotip + knjiga standarda</small></td><td>od 250,00 €</td></tr>
+          <tr><td>Dizajn letka, brošure ili plakata</td><td>od 60,00 €</td></tr>
+          <tr><td>Dizajn ambalaže i naljepnica</td><td>od 100,00 €</td></tr>
+          <tr><td>Prijelom i grafička priprema publikacija</td><td>25,00 € <small>/ str.</small></td></tr>
+        </table>
+      </div>
+
+      <div class="pricing-category">
+        <div class="pricing-category-header">
+          <div class="pricing-category-num">03</div>
+          <div class="pricing-category-title">Jezične Usluge i Prijevodi</div>
+        </div>
+        <table class="pricing-table">
+          <tr><td>AI-potpomognuti prijevod za ugostiteljstvo</td><td>15,00 € <small>/ str.</small></td></tr>
+          <tr><td>Prijevod marketinških kampanja</td><td>Na upit</td></tr>
+        </table>
+      </div>
+
+      <div class="pricing-category">
+        <div class="pricing-category-header">
+          <div class="pricing-category-num">04</div>
+          <div class="pricing-category-title">Marketing, PR i Komunikacije</div>
+        </div>
+        <table class="pricing-table">
+          <tr><td>Vođenje društvenih mreža (FB, IG) <small>mjesečni paket</small></td><td>od 300,00 €</td></tr>
+          <tr><td>Izrada i provedba digitalne promotivne kampanje</td><td>od 500,00 €</td></tr>
+          <tr><td>PR savjetovanje i komunikacijska strategija</td><td>60,00 € <small>/ sat</small></td></tr>
+          <tr><td>Pisanje autorskih tekstova i promo-članaka</td><td>40,00 € <small>/ tekst</small></td></tr>
+          <tr><td>Uređivanje biltena i informativnih listova</td><td>60,00 € <small>/ sat</small></td></tr>
+        </table>
+      </div>
+
+      <div class="pricing-category">
+        <div class="pricing-category-header">
+          <div class="pricing-category-num">05</div>
+          <div class="pricing-category-title">Edukacija i Poučavanje</div>
+        </div>
+        <table class="pricing-table">
+          <tr><td>Individualna poduka: AI u poslovanju</td><td>60,00 € <small>/ sat</small></td></tr>
+          <tr><td>Grupna AI radionica za poduzetnike</td><td>80,00 € <small>/ polaz.</small></td></tr>
+        </table>
+      </div>
+
+      <div class="pricing-category">
+        <div class="pricing-category-header">
+          <div class="pricing-category-num">06</div>
+          <div class="pricing-category-title">Digitalna Rješenja i Web</div>
+        </div>
+        <table class="pricing-table">
+          <tr><td>Izrada Landing stranice</td><td>350,00 €</td></tr>
+          <tr><td>Postavljanje Payhip online trgovine</td><td>150,00 €</td></tr>
+          <tr><td>Tehničko održavanje web stranice <small>mjesečni paušal</small></td><td>40,00 €</td></tr>
+          <tr><td>Zakup hostinga i domene</td><td>od 120,00 € <small>/ god.</small></td></tr>
+        </table>
+      </div>
+
+      <div class="pricing-category">
+        <div class="pricing-category-header">
+          <div class="pricing-category-num">07</div>
+          <div class="pricing-category-title">Savjetovanje i Administracija</div>
+        </div>
+        <table class="pricing-table">
+          <tr><td>Strateško vizualno savjetovanje (Visual Audit)</td><td>60,00 € <small>/ sat</small></td></tr>
+          <tr><td>Tehnička priprema dokumentacije</td><td>30,00 € <small>/ sat</small></td></tr>
+          <tr><td>Digitalno arhiviranje i organizacija</td><td>40,00 € <small>/ sat</small></td></tr>
+          <tr><td>Usluge virtualnog asistenta</td><td>40,00 € <small>/ sat</small></td></tr>
+          <tr><td>Organizacija evenata i manifestacija</td><td>od 600,00 € <small>/ proj.</small></td></tr>
+        </table>
+      </div>
+
+      <div class="pricing-category">
+        <div class="pricing-category-header">
+          <div class="pricing-category-num">08</div>
+          <div class="pricing-category-title">Advanced AI Visual Lab</div>
+        </div>
+        <table class="pricing-table">
+          <tr><td>AI restauracija vizuala <small>do 8K rezolucije</small></td><td>10,00 – 20,00 €</td></tr>
+          <tr><td>Generative Background Swap <small>promjena ambijenta</small></td><td>20,00 – 35,00 €</td></tr>
+          <tr><td>AI Creative Poster Design</td><td>45,00 – 75,00 €</td></tr>
+          <tr><td>AI Video Crystal Clear <small>stabilizacija + upscale</small></td><td>15,00 – 30,00 €</td></tr>
+        </table>
+      </div>
+
+      <div class="pricing-category">
+        <div class="pricing-category-header">
+          <div class="pricing-category-num">09</div>
+          <div class="pricing-category-title">Izdavaštvo i Internet Trgovina</div>
+        </div>
+        <table class="pricing-table">
+          <tr><td>Digitalni vodiči, predlošci i e-knjige (PDF)</td><td>9,00 – 35,00 €</td></tr>
+          <tr><td>Dizajn personaliziranih artikala <small>majice i promo predmeti</small></td><td>25,00 – 35,00 €</td></tr>
+          <tr><td>Unikatne uokvirene AI slike i radovi</td><td>Na upit</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="pricing-note reveal">
+      <strong>Napomena o tisku:</strong> Sve cijene odnose se na izradu digitalnog rješenja. Usluga tiska nije uključena u cijenu dizajna. Kao partner Print Centra Velika Gorica, nudimo kompletnu uslugu prema posebnim uvjetima.
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <div class="section-label">Povežimo se</div>
+    <h2 class="section-title">Kontakt</h2>
+    <div class="divider"></div>
+    
+    <div class="contact-grid">
+      <div class="contact-info reveal-left">
+        <p>Spremni ste podići vizualni identitet svog poslovanja na višu razinu? Pošaljite nam upit i odgovorit ćemo vam u najkraćem mogućem roku s prijedlogom rješenja.</p>
+        
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉</div>
+          <div class="contact-detail-text">
+            <label>Email Adresa</label>
+            <span>kezicvizuali@gmail.com</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📱</div>
+          <div class="contact-detail-text">
+            <label>Telefon</label>
+            <span><a href="tel:+385976002753" style="color: var(--text); text-decoration: none;">+385 97 600 2753</a></span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🌍</div>
+          <div class="contact-detail-text">
+            <label>Područje Rada</label>
+            <span><strong style="font-weight: 400; color: var(--text);">Terenski:</strong> Cijela Hrvatska i Slovenija<br><strong style="font-weight: 400; color: var(--text);">Online:</strong> Globalno</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🕒</div>
+          <div class="contact-detail-text">
+            <label>Radno Vrijeme</label>
+            <span>Pon – Pet: 09:00 – 17:00<br>Subota: Prema dogovoru</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <form class="contact-form" action="https://formspree.io/f/mgoqkdek" method="POST" id="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ime i Prezime / Tvrtka</label>
+              <input type="text" name="name" placeholder="Vaše ime" required>
+            </div>
+            <div class="form-group">
+              <label>Email Adresa</label>
+              <input type="email" name="email" placeholder="vas@email.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Vrsta Usluge</label>
+            <select name="service">
+              <option>Fotografiranje (Razne foto usluge)</option>
+              <option>Gastro Starter Pack</option>
+              <option>Grafički Dizajn (Logo, Jelovnici...)</option>
+              <option>Izrada Web Stranice</option>
+              <option>Vizualne Komunikacije / AI Art</option>
+              <option>Organizacija Evenata</option>
+              <option>Ostalo / Opći upit</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Vaša Poruka</label>
+            <textarea name="message" placeholder="Ukratko opišite što vam je potrebno..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="margin-top: 0.5rem; width: fit-content;">Pošalji Upit →</button>
+        </form>
+        <div id="form-success">Hvala vam! Vaš upit je uspješno poslan. Javit ćemo vam se uskoro.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid reveal">
+      <div class="footer-brand">
+        <img src="Kezić vizuali transparent xl.png" alt="Kezić Vizuali Logo" style="height: 110px; width: auto;">
+        <p>Studio za vizualne komunikacije i dizajn. Spoj stare škole majstorstva i tehnologije budućnosti.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Brzi Linkovi</h5>
+        <ul>
+          <li><a href="#hero">Početna</a></li>
+          <li><a href="#o-meni">O nama</a></li>
+          <li><a href="#cjenik">Usluge i Cjenik</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Društvene Mreže</h5>
+        <ul>
+          <li><a href="https://www.facebook.com/kezicvizuali.vg" target="_blank">Službena Stranica</a></li>
+          <li><a href="https://www.facebook.com/kezicvizuali/" target="_blank">Privatni Profil</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom reveal">
+      <p>&copy; 2026 Kezić Vizuali. Sva prava pridržana.</p>
+      <a href="uvjeti.html" target="_blank">Uvjeti korištenja i autorska prava</a>
+    </div>
+  </footer>
+
   <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animateCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Particles
+    const pc = document.getElementById('particles');
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 2 + 1;
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        width: ${size}px; height: ${size}px;
+        animation-duration: ${Math.random() * 20 + 15}s;
+        animation-delay: ${Math.random() * 15}s;
+        --dx: ${(Math.random() - 0.5) * 80}px;
+        opacity: 0;
+      `;
+      pc.appendChild(p);
+    }
+
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Hamburger
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
-    hamburger.addEventListener('click', () => { navLinks.classList.toggle('open'); });
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
-    }, { threshold: 0.1 });
-    revealEls.forEach(el => observer.observe(el));
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+    window.addEventListener('scroll', () => { if (navLinks.classList.contains('open')) navLinks.classList.remove('open'); });
+
+    // Reveal
+    const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => obs.observe(el));
+
+    // Form
+    const form = document.getElementById('contact-form');
+    const success = document.getElementById('form-success');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      btn.textContent = 'Šaljem...'; btn.disabled = true;
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+        if (res.ok) { form.style.display = 'none'; success.style.display = 'block'; }
+        else { btn.textContent = 'Pošalji Upit →'; btn.disabled = false; }
+      } catch { btn.textContent = 'Pošalji Upit →'; btn.disabled = false; }
+    });
   </script>
 </body>
 </html>
