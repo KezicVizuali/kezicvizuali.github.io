@@ -155,6 +155,59 @@ nav.scrolled { background: rgba(8,8,7,0.97); border-color: rgba(201,168,76,0.22)
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer !important; background: none; border: none; padding: 4px; }
 .hamburger span { display: block; width: 24px; height: 1px; background: var(--text); transition: 0.3s; }
 
+/* ════════════════════════════════
+   ── PROMO BANNER 100€ (NEW) ──
+   ════════════════════════════════ */
+.promo-bar {
+  position: relative; z-index: 99;
+  background: linear-gradient(90deg, #0d0d0a 0%, #1a1608 40%, #0d0d0a 100%);
+  border-bottom: 1px solid rgba(201,168,76,0.3);
+  padding: 0;
+  overflow: hidden;
+}
+.promo-bar::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.06) 50%, transparent 100%);
+  animation: promo-shimmer 4s ease-in-out infinite;
+}
+@keyframes promo-shimmer {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+.promo-bar-inner {
+  display: flex; align-items: center; justify-content: center; gap: 2rem;
+  padding: 0.65rem 5%;
+  flex-wrap: wrap;
+  position: relative; z-index: 1;
+}
+.promo-bar-badge {
+  background: var(--gold); color: #080807;
+  font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 0.22rem 0.7rem; font-weight: 500; flex-shrink: 0;
+}
+.promo-bar-text {
+  font-size: 0.82rem; color: var(--text);
+  display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; justify-content: center;
+}
+.promo-bar-text strong { color: var(--gold); font-weight: 500; }
+.promo-bar-text .sep { color: var(--text-faint); }
+.promo-bar-cta {
+  background: transparent; border: 1px solid var(--gold); color: var(--gold);
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 0.35rem 1rem; text-decoration: none;
+  transition: background 0.2s, color 0.2s; flex-shrink: 0;
+  white-space: nowrap;
+}
+.promo-bar-cta:hover { background: var(--gold); color: #080807; }
+.promo-bar-close {
+  background: none; border: none; color: var(--text-faint);
+  font-size: 1rem; padding: 0.2rem 0.4rem; flex-shrink: 0;
+  transition: color 0.2s; cursor: pointer !important;
+  line-height: 1;
+}
+.promo-bar-close:hover { color: var(--text-muted); }
+
 /* ── HERO ── */
 #hero {
   min-height: 100vh;
@@ -162,6 +215,12 @@ nav.scrolled { background: rgba(8,8,7,0.97); border-color: rgba(201,168,76,0.22)
   padding: 120px 5% 80px;
   position: relative;
   overflow: hidden;
+}
+
+/* PARALLAX LAYERS */
+.hero-parallax-bg {
+  position: absolute; inset: -20%; z-index: 0;
+  will-change: transform;
 }
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
@@ -239,7 +298,7 @@ nav.scrolled { background: rgba(8,8,7,0.97); border-color: rgba(201,168,76,0.22)
 }
 .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
 
-/* HERO STATS */
+/* HERO STATS — animated counters */
 .hero-stats {
   position: absolute; right: 5%; bottom: 12%;
   display: flex; flex-direction: column; gap: 2rem;
@@ -361,9 +420,8 @@ section { padding: 8rem 5%; position: relative; z-index: 2; }
 .omeni-step-icon {
   width: 36px; height: 36px; flex-shrink: 0;
   border: 1px solid var(--gold); color: var(--gold);
-  font-size: 0.68rem; font-weight: 500;
   display: flex; align-items: center; justify-content: center;
-  letter-spacing: 0.05em; margin-top: 0.1rem;
+  margin-top: 0.1rem;
   font-family: var(--serif); font-style: italic; font-size: 1rem;
 }
 .omeni-step-body strong { display: block; font-size: 0.92rem; color: var(--text); font-weight: 400; margin-bottom: 0.3rem; }
@@ -379,9 +437,84 @@ section { padding: 8rem 5%; position: relative; z-index: 2; }
 }
 .omeni-quote p { font-family: var(--serif); font-size: 1.05rem; font-style: italic; color: var(--text); margin-bottom: 0; line-height: 1.8; position: relative; z-index: 1; }
 
-/* ── WEB OFFER BANNER ── */
-.web-offer-banner {
+/* ════════════════════════════════
+   ── 100€ ACTION BANNER (NEW) ──
+   ════════════════════════════════ */
+.akcija-banner {
   margin: 0 5%; position: relative; z-index: 2;
+  overflow: hidden;
+}
+.akcija-banner-inner {
+  background: linear-gradient(135deg, #0d0d0a 0%, #141410 50%, #0d0b08 100%);
+  border: 1px solid rgba(201,168,76,0.3);
+  position: relative; overflow: hidden;
+}
+/* Animated border glow */
+.akcija-banner-inner::before {
+  content: '';
+  position: absolute; inset: -1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent);
+  animation: border-sweep 3s linear infinite;
+  z-index: 0;
+}
+@keyframes border-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.akcija-banner-content {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: auto 1fr auto;
+  gap: 0; align-items: stretch;
+}
+.akcija-price-col {
+  padding: 2.5rem 3rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border-right: 1px solid rgba(201,168,76,0.15);
+  background: rgba(201,168,76,0.04);
+  position: relative; text-align: center; min-width: 160px;
+}
+.akcija-price-label { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.4rem; }
+.akcija-price-num {
+  font-family: var(--serif); font-size: 4.5rem; font-weight: 300;
+  color: var(--gold); line-height: 0.9; margin-bottom: 0.4rem;
+}
+.akcija-price-num sup { font-size: 0.35em; vertical-align: super; }
+.akcija-price-sub { font-size: 0.65rem; color: var(--text-faint); letter-spacing: 0.1em; text-transform: uppercase; }
+
+.akcija-text-col {
+  padding: 2.5rem;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.akcija-badge {
+  display: inline-block; background: var(--gold); color: #080807;
+  font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 0.2rem 0.7rem; margin-bottom: 0.9rem; font-weight: 500; align-self: flex-start;
+}
+.akcija-title {
+  font-family: var(--serif); font-size: 1.7rem; font-weight: 300;
+  line-height: 1.2; margin-bottom: 0.8rem;
+}
+.akcija-title em { font-style: italic; color: var(--gold); }
+.akcija-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.2rem; line-height: 1.7; }
+.akcija-feats {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+}
+.akcija-feat {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.78rem; color: var(--text-muted);
+}
+.akcija-feat::before { content: '✓'; color: var(--gold); font-weight: 600; }
+
+.akcija-cta-col {
+  padding: 2.5rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem;
+  border-left: 1px solid rgba(201,168,76,0.15);
+  min-width: 180px;
+}
+
+/* ── WEB OFFER BANNER (original, updated) ── */
+.web-offer-banner {
+  margin: 3rem 5% 0; position: relative; z-index: 2;
   background: linear-gradient(135deg, #0d0d0a 0%, #141410 60%, #0a0a08 100%);
   border: 1px solid var(--border);
   padding: 3.5rem 4rem;
@@ -436,11 +569,28 @@ section { padding: 8rem 5%; position: relative; z-index: 2; }
 .gastro-check { color: var(--gold); flex-shrink: 0; margin-top: 0.1rem; }
 .gastro-item-text { flex: 1; }
 .gastro-item-text small { display: block; font-size: 0.76rem; color: var(--text-faint); margin-top: 0.2rem; }
+
+/* GLASSMORPHISM price box */
 .gastro-price-box {
-  background: var(--bg2);
-  border: 1px solid var(--border);
+  background: rgba(15,15,13,0.5);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(201,168,76,0.2);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(201,168,76,0.1);
   padding: 3rem;
   position: relative; overflow: hidden;
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+.gastro-price-box:hover {
+  border-color: rgba(201,168,76,0.4);
+  box-shadow: 0 12px 60px rgba(0,0,0,0.5), 0 0 30px rgba(201,168,76,0.08), inset 0 1px 0 rgba(201,168,76,0.2);
+}
+.gastro-price-box::before {
+  content: '';
+  position: absolute; top: -60%; left: -20%;
+  width: 200%; height: 200%;
+  background: radial-gradient(ellipse at 30% 0%, rgba(201,168,76,0.06) 0%, transparent 60%);
+  pointer-events: none;
 }
 .gastro-price-box::after {
   content: '';
@@ -453,27 +603,68 @@ section { padding: 8rem 5%; position: relative; z-index: 2; }
 .gastro-price-num { font-family: var(--serif); font-size: 5rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 0.5rem; }
 .gastro-price-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 2.5rem; }
 
-/* ── CJENIK ── */
+/* ════════════════════════════════
+   ── PRICING — hover upgrades ──
+   ════════════════════════════════ */
 #cjenik { background: var(--bg2); }
 .pricing-intro { max-width: 640px; margin-bottom: 4.5rem; }
 .pricing-intro p { color: var(--text-muted); }
 
 .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2px; background: var(--border); border: 1px solid var(--border); }
+
 .pricing-category {
   background: var(--bg2);
   padding: 2rem 2.2rem;
-  transition: background 0.3s;
+  position: relative; overflow: hidden;
+  transition: background 0.35s, box-shadow 0.35s, transform 0.3s;
 }
-.pricing-category:hover { background: var(--bg3); }
+/* Glassmorphism on hover */
+.pricing-category:hover {
+  background: rgba(15,15,13,0.7);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: inset 0 0 0 1px rgba(201,168,76,0.18), 0 0 40px rgba(0,0,0,0.3);
+  z-index: 1;
+}
+.pricing-category::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.pricing-category:hover::before { opacity: 1; }
+
+/* Gold top-edge reveal on hover */
+.pricing-category::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+.pricing-category:hover::after { transform: scaleX(1); }
+
 .pricing-category-header { margin-bottom: 1.5rem; }
-.pricing-category-num { font-family: var(--serif); font-size: 3rem; font-weight: 300; color: rgba(201,168,76,0.15); line-height: 1; margin-bottom: 0.25rem; }
+.pricing-category-num {
+  font-family: var(--serif); font-size: 3rem; font-weight: 300;
+  color: rgba(201,168,76,0.15); line-height: 1; margin-bottom: 0.25rem;
+  transition: color 0.35s;
+}
+.pricing-category:hover .pricing-category-num { color: rgba(201,168,76,0.3); }
+
 .pricing-category-title {
   font-family: var(--serif); font-size: 1.1rem; font-weight: 600;
   padding-top: 0.5rem; border-top: 1px solid var(--border); color: var(--gold);
 }
 .pricing-table { width: 100%; border-collapse: collapse; }
-.pricing-table tr { border-bottom: 1px solid rgba(201,168,76,0.06); }
+.pricing-table tr {
+  border-bottom: 1px solid rgba(201,168,76,0.06);
+  transition: background 0.2s;
+}
 .pricing-table tr:last-child { border-bottom: none; }
+.pricing-table tr:hover { background: rgba(201,168,76,0.04); }
 .pricing-table td { padding: 0.75rem 0; font-size: 0.84rem; vertical-align: top; }
 .pricing-table td:first-child { color: var(--text-muted); padding-right: 12px; line-height: 1.5; }
 .pricing-table td:last-child {
@@ -576,7 +767,7 @@ footer::before {
   .pricing-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
-  .web-offer-banner { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem; margin: 0 5%; }
+  .web-offer-banner { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem; margin: 3rem 5% 0; }
   .web-offer-price-box { text-align: left; }
   .nav-links {
     position: fixed; top: 72px; left: 0; right: 0;
@@ -592,6 +783,11 @@ footer::before {
   .nav-links a::after { display: none; }
   .nav-cta { display: none; }
   .hamburger { display: flex; }
+  /* Akcija banner mobile */
+  .akcija-banner-content { grid-template-columns: 1fr; }
+  .akcija-price-col { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.15); flex-direction: row; gap: 1.5rem; }
+  .akcija-cta-col { border-left: none; border-top: 1px solid rgba(201,168,76,0.15); align-items: flex-start; }
+  .promo-bar-inner { gap: 1rem; }
 }
 @media (max-width: 600px) {
   section { padding: 5rem 5%; }
@@ -606,6 +802,22 @@ footer::before {
   <div id="cursor"></div>
   <div id="cursor-ring"></div>
   <div id="particles"></div>
+
+  <!-- ══ PROMO BAR 100€ ══ -->
+  <div class="promo-bar" id="promo-bar">
+    <div class="promo-bar-inner">
+      <span class="promo-bar-badge">🔥 Akcija</span>
+      <span class="promo-bar-text">
+        <strong>Web stranica za samo 100 €</strong>
+        <span class="sep">·</span>
+        Hosting zauvijek besplatan
+        <span class="sep">·</span>
+        Fotografiranje + tekstovi uključeni
+      </span>
+      <a href="ponuda100.html" class="promo-bar-cta">Saznaj više →</a>
+      <button class="promo-bar-close" id="promo-close" aria-label="Zatvori">✕</button>
+    </div>
+  </div>
 
   <nav id="navbar">
     <a href="#" class="nav-logo">
@@ -623,8 +835,10 @@ footer::before {
   </nav>
 
   <header id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-lines"></div>
+    <div class="hero-parallax-bg" id="parallax-bg">
+      <div class="hero-bg"></div>
+      <div class="hero-lines"></div>
+    </div>
     <div class="hero-content">
       <div class="hero-eyebrow">Digitalni Kreativni Studio &mdash; Velika Gorica</div>
       <h1 class="hero-title">
@@ -640,12 +854,12 @@ footer::before {
     </div>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="hero-stat-num">15+</div>
+        <div class="hero-stat-num" data-count="15" data-suffix="+">0</div>
         <div class="hero-stat-label">Godina iskustva</div>
       </div>
       <div class="hero-stat-divider"></div>
       <div class="hero-stat">
-        <div class="hero-stat-num">9</div>
+        <div class="hero-stat-num" data-count="9">0</div>
         <div class="hero-stat-label">Kategorija usluga</div>
       </div>
       <div class="hero-stat-divider"></div>
@@ -734,12 +948,40 @@ footer::before {
     </div>
   </section>
 
-  <!-- WEB OFFER BANNER -->
+  <!-- ══ 100€ AKCIJA BANNER ══ -->
+  <div class="akcija-banner reveal">
+    <div class="akcija-banner-inner">
+      <div class="akcija-banner-content">
+        <div class="akcija-price-col">
+          <div class="akcija-price-label">Akcijska cijena</div>
+          <div class="akcija-price-num"><sup>€</sup>100</div>
+          <div class="akcija-price-sub">jednokratno</div>
+        </div>
+        <div class="akcija-text-col">
+          <span class="akcija-badge">🔥 Najjača ponuda</span>
+          <div class="akcija-title">Vaš web. Zauvijek vaš.<br><em>Besplatan hosting — zauvijek.</em></div>
+          <div class="akcija-desc">Kompletan profesionalni web za obrt, OPG ili udrugu. Fotografiranje, copywriting, SEO, kontakt forma i domena — sve u jednoj cijeni. Jednom platite, nikad više nikome.</div>
+          <div class="akcija-feats">
+            <span class="akcija-feat">Ultra-brzo</span>
+            <span class="akcija-feat">Do 6 podstranica</span>
+            <span class="akcija-feat">SEO optimizirano</span>
+            <span class="akcija-feat">Bez pretplate</span>
+          </div>
+        </div>
+        <div class="akcija-cta-col">
+          <a href="ponuda100.html" class="btn-primary" style="white-space: nowrap; display: block; text-align: center;">Pogledaj ponudu →</a>
+          <a href="#kontakt" class="btn-outline" style="white-space: nowrap; display: block; text-align: center;">Kontakt</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEB OFFER BANNER (500€ — kompleksni projekti) -->
   <div class="web-offer-banner reveal">
     <div>
-      <div class="web-offer-badge">Web Development</div>
+      <div class="web-offer-badge">Web Development — Napredni projekti</div>
       <div class="web-offer-title">Ultra-brza web rješenja<br>bez <em style="font-family: var(--serif); font-style: italic; color: var(--gold);">mjesečnih troškova</em></div>
-      <div class="web-offer-desc">Moderna, sigurna i brza statička web stranica — jednom platite, zauvijek vaše.</div>
+      <div class="web-offer-desc">Webshop, višejezičnost, posebne funkcionalnosti — cijena se dogovara individualno.</div>
       <div class="web-offer-features">
         <div class="web-offer-feat">Ultra-brzo učitavanje</div>
         <div class="web-offer-feat">Bez hostinga</div>
@@ -748,7 +990,7 @@ footer::before {
       </div>
     </div>
     <div class="web-offer-price-box">
-      <div class="web-offer-price-label">Od samo</div>
+      <div class="web-offer-price-label">Od</div>
       <div class="web-offer-price"><sup>€</sup>500</div>
       <a href="#kontakt" class="btn-primary" style="display: block; text-align: center;">Zatražite Ponudu</a>
     </div>
@@ -998,10 +1240,11 @@ footer::before {
           <div class="form-group">
             <label>Vrsta Usluge</label>
             <select name="service">
+              <option>Web za 100 € — akcijska ponuda</option>
               <option>Fotografiranje (Razne foto usluge)</option>
               <option>Gastro Starter Pack</option>
               <option>Grafički Dizajn (Logo, Jelovnici...)</option>
-              <option>Izrada Web Stranice</option>
+              <option>Izrada Web Stranice (od 500 €)</option>
               <option>Vizualne Komunikacije / AI Art</option>
               <option>Organizacija Evenata</option>
               <option>Ostalo / Opći upit</option>
@@ -1031,6 +1274,7 @@ footer::before {
           <li><a href="#o-meni">O nama</a></li>
           <li><a href="#cjenik">Usluge i Cjenik</a></li>
           <li><a href="#kontakt">Kontakt</a></li>
+          <li><a href="ponuda100.html">Web za 100 €</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1048,7 +1292,7 @@ footer::before {
   </footer>
 
   <script>
-    // Custom cursor
+    // ── Custom cursor ──
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursor-ring');
     let mx = 0, my = 0, rx = 0, ry = 0;
@@ -1061,7 +1305,7 @@ footer::before {
     }
     animateCursor();
 
-    // Particles
+    // ── Particles ──
     const pc = document.getElementById('particles');
     for (let i = 0; i < 18; i++) {
       const p = document.createElement('div');
@@ -1078,27 +1322,86 @@ footer::before {
       pc.appendChild(p);
     }
 
-    // Navbar scroll
+    // ── Navbar scroll ──
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // Hamburger
+    // ── Hamburger ──
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
     hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
     window.addEventListener('scroll', () => { if (navLinks.classList.contains('open')) navLinks.classList.remove('open'); });
 
-    // Reveal
+    // ── Promo bar close ──
+    document.getElementById('promo-close').addEventListener('click', () => {
+      const bar = document.getElementById('promo-bar');
+      bar.style.transition = 'opacity 0.3s, max-height 0.4s';
+      bar.style.opacity = '0';
+      bar.style.maxHeight = '0';
+      bar.style.overflow = 'hidden';
+      setTimeout(() => bar.style.display = 'none', 400);
+    });
+
+    // ── PARALLAX HERO ──
+    const parallaxBg = document.getElementById('parallax-bg');
+    let ticking = false;
+    function handleParallax() {
+      const scrollY = window.scrollY;
+      const heroH = document.getElementById('hero').offsetHeight;
+      if (scrollY < heroH * 1.2) {
+        const ty = scrollY * 0.35;
+        parallaxBg.style.transform = `translateY(${ty}px)`;
+      }
+      ticking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(handleParallax); ticking = true; }
+    });
+
+    // ── ANIMATED COUNTERS ──
+    function animateCounter(el) {
+      const target = parseInt(el.getAttribute('data-count'));
+      const suffix = el.getAttribute('data-suffix') || '';
+      const duration = 1800;
+      const startTime = performance.now();
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * target);
+        el.textContent = current + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    // ── Reveal + Counter trigger ──
     const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const counters = document.querySelectorAll('[data-count]');
+    let countersTriggered = false;
+
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
     }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
     reveals.forEach(el => obs.observe(el));
 
-    // Form
+    // Counter: trigger when hero stats become visible (they're always in DOM but hidden on mobile)
+    const heroObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !countersTriggered) {
+          countersTriggered = true;
+          counters.forEach(c => animateCounter(c));
+        }
+      });
+    }, { threshold: 0.5 });
+    const heroStats = document.querySelector('.hero-stats');
+    if (heroStats) heroObs.observe(heroStats);
+
+    // ── Form ──
     const form = document.getElementById('contact-form');
     const success = document.getElementById('form-success');
     form.addEventListener('submit', async (e) => {
