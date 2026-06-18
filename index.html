@@ -9,6 +9,10 @@
 <meta property="og:image" content="https://kezicvizuali.com/logo-za-share.jpg">
 <meta property="og:url" content="https://kezicvizuali.com/">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kezić Vizuali – Kreativni Studio, Velika Gorica">
+<meta name="twitter:description" content="Izrada modernih web stranica i vrhunski vizualni sadržaj.">
+<meta name="twitter:image" content="https://kezicvizuali.com/logo-za-share.jpg">
 <!-- Geo meta tagovi za lokalnu vidljivost -->
 <meta name="geo.region" content="HR-01">
 <meta name="geo.placename" content="Velika Gorica">
@@ -827,6 +831,38 @@ section { padding: 8rem 5%; position: relative; z-index: 2; }
   font-size: 0.92rem; white-space: nowrap; font-weight: 600; padding-left: 8px;
 }
 .pricing-table td small { display: block; font-size: 0.7rem; color: var(--text-faint); margin-top: 0.2rem; }
+
+/* ── COOKIE BANNER ── */
+#cookie-banner {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 10001;
+  background: rgba(8,8,7,0.97);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  padding: 1rem 5%;
+  align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+#cookie-banner.visible { display: flex; }
+#cookie-banner p { margin: 0; font-size: 0.85rem; color: var(--text-muted); max-width: 620px; line-height: 1.6; }
+#cookie-banner a { color: var(--gold); text-decoration: none; }
+#cookie-banner a:hover { text-decoration: underline; }
+.cookie-banner-btns { display: flex; gap: 0.6rem; flex-shrink: 0; }
+#cookie-reject {
+  background: transparent; border: 1px solid var(--text-faint);
+  color: var(--text-muted); padding: 0.55rem 1.1rem;
+  font-family: var(--sans); font-size: 0.75rem;
+  letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer !important;
+  transition: border-color 0.2s, color 0.2s;
+}
+#cookie-reject:hover { border-color: var(--text-muted); color: var(--text); }
+#cookie-accept {
+  background: var(--gold); border: none; color: #080807;
+  padding: 0.55rem 1.1rem; font-family: var(--sans); font-size: 0.75rem;
+  letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+  cursor: pointer !important; transition: background 0.2s;
+}
+#cookie-accept:hover { background: var(--gold-light); }
 .pricing-note {
   background: var(--bg3); border-left: 2px solid var(--gold);
   padding: 1.5rem 2rem; font-size: 0.84rem; color: var(--text-muted);
@@ -966,6 +1002,14 @@ footer::before {
   <div id="cursor"></div>
   <div id="cursor-ring"></div>
   <div id="particles"></div>
+
+  <div id="cookie-banner" role="dialog" aria-label="Privola za kolačiće">
+    <p>Koristimo kolačiće za analitiku (Google Analytics) kako bismo poboljšali stranicu. Možete prihvatiti ili odbiti. <a href="uvjeti.html">Više informacija</a></p>
+    <div class="cookie-banner-btns">
+      <button type="button" id="cookie-reject">Odbij</button>
+      <button type="button" id="cookie-accept">Prihvati</button>
+    </div>
+  </div>
 
   <!-- ══ PROMO BAR 100€ ══ -->
   <div class="promo-bar" id="promo-bar">
@@ -1671,6 +1715,42 @@ footer::before {
         if (res.ok) { form.style.display = 'none'; success.style.display = 'block'; }
         else { btn.textContent = 'Pošalji Upit →'; btn.disabled = false; }
       } catch { btn.textContent = 'Pošalji Upit →'; btn.disabled = false; }
+    });
+
+    // ── Cookie banner + GA4 (učitava se tek nakon privole) ──
+    const GA_ID = 'G-7H37BSQEHQ';
+    const cookieBanner = document.getElementById('cookie-banner');
+
+    function loadGA() {
+      if (window.__gaLoaded) return;
+      window.__gaLoaded = true;
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', GA_ID, { anonymize_ip: true });
+    }
+
+    const cookieChoice = localStorage.getItem('cookie_consent');
+    if (cookieChoice === 'accepted') {
+      loadGA();
+    } else if (cookieChoice !== 'rejected') {
+      cookieBanner.classList.add('visible');
+    }
+
+    document.getElementById('cookie-accept').addEventListener('click', () => {
+      localStorage.setItem('cookie_consent', 'accepted');
+      cookieBanner.classList.remove('visible');
+      loadGA();
+    });
+
+    document.getElementById('cookie-reject').addEventListener('click', () => {
+      localStorage.setItem('cookie_consent', 'rejected');
+      cookieBanner.classList.remove('visible');
     });
   </script>
 </body>
