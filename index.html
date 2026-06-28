@@ -712,59 +712,6 @@ section { padding: 8rem 5%; position: relative; z-index: 2; }
 .web-offer-price { font-family: var(--serif); font-size: 4.5rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 1.5rem; }
 .web-offer-price sup { font-size: 1.8rem; vertical-align: super; }
 
-/* ── GASTRO ── */
-#gastro {
-  background: linear-gradient(160deg, #0f0f0c 0%, #141410 50%, #0a0a08 100%);
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-}
-.gastro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
-.gastro-badge {
-  display: inline-block; background: transparent; border: 1px solid var(--gold);
-  color: var(--gold); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
-  padding: 0.4rem 1.1rem; margin-bottom: 1.5rem;
-}
-.gastro-items { list-style: none; margin: 2rem 0; }
-.gastro-items li {
-  padding: 0.9rem 0; border-bottom: 1px solid rgba(201,168,76,0.08);
-  font-size: 0.88rem; display: flex; align-items: flex-start; gap: 1rem;
-  transition: padding-left 0.2s;
-}
-.gastro-items li:hover { padding-left: 0.5rem; }
-.gastro-check { color: var(--gold); flex-shrink: 0; margin-top: 0.1rem; }
-.gastro-item-text { flex: 1; }
-.gastro-item-text small { display: block; font-size: 0.76rem; color: var(--text-faint); margin-top: 0.2rem; }
-
-.gastro-price-box {
-  background: rgba(15,15,13,0.5);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(201,168,76,0.2);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(201,168,76,0.1);
-  padding: 3rem;
-  position: relative; overflow: hidden;
-  transition: border-color 0.4s, box-shadow 0.4s;
-}
-.gastro-price-box:hover {
-  border-color: rgba(201,168,76,0.4);
-  box-shadow: 0 12px 60px rgba(0,0,0,0.5), 0 0 30px rgba(201,168,76,0.08), inset 0 1px 0 rgba(201,168,76,0.2);
-}
-.gastro-price-box::before {
-  content: '';
-  position: absolute; top: -60%; left: -20%;
-  width: 200%; height: 200%;
-  background: radial-gradient(ellipse at 30% 0%, rgba(201,168,76,0.06) 0%, transparent 60%);
-  pointer-events: none;
-}
-.gastro-price-box::after {
-  content: '';
-  position: absolute; bottom: -30px; right: -30px;
-  width: 150px; height: 150px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
-}
-.gastro-price-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.75rem; }
-.gastro-price-num { font-family: var(--serif); font-size: 5rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 0.5rem; }
-.gastro-price-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 2.5rem; }
 
 /* ── PRICING ── */
 #cjenik { background: var(--bg2); }
@@ -964,7 +911,7 @@ footer::before {
   .stat-box { border-bottom: 1px solid rgba(201,168,76,0.06); }
   .stat-box:not(:last-child)::after { display: none; }
   
-  .omeni-grid, .gastro-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .omeni-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
   .omeni-photo-wrap { position: static; }
   .pricing-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
@@ -1082,7 +1029,6 @@ footer::before {
       <div class="marquee-item"><span class="marquee-dot"></span>Fotografija</div>
       <div class="marquee-item"><span class="marquee-dot"></span>Web Dizajn</div>
       <div class="marquee-item"><span class="marquee-dot"></span>Grafički Dizajn</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Gastro Marketing</div>
       <div class="marquee-item"><span class="marquee-dot"></span>Branding</div>
       <div class="marquee-item"><span class="marquee-dot"></span>PR & Komunikacije</div>
       <div class="marquee-item"><span class="marquee-dot"></span>Portreti</div>
@@ -1090,7 +1036,6 @@ footer::before {
       <div class="marquee-item"><span class="marquee-dot"></span>Fotografija</div>
       <div class="marquee-item"><span class="marquee-dot"></span>Web Dizajn</div>
       <div class="marquee-item"><span class="marquee-dot"></span>Grafički Dizajn</div>
-      <div class="marquee-item"><span class="marquee-dot"></span>Gastro Marketing</div>
       <div class="marquee-item"><span class="marquee-dot"></span>Branding</div>
       <div class="marquee-item"><span class="marquee-dot"></span>PR & Komunikacije</div>
       <div class="marquee-item"><span class="marquee-dot"></span>Portreti</div>
@@ -1216,51 +1161,6 @@ footer::before {
     </div>
   </div>
 
-  <section id="gastro">
-    <div class="gastro-grid">
-      <div class="reveal-left">
-        <div class="gastro-badge">Ekskluzivna Ponuda</div>
-        <h2 class="section-title" style="color: var(--text);">Gastro Starter <em>Pack</em></h2>
-        <div class="divider"></div>
-        <p style="color: var(--text-muted); font-style: italic; font-size: 0.88rem; margin-bottom: 0.5rem;">Idealno za restorane, kafiće i OPG-ove.</p>
-        <ul class="gastro-items">
-          <li>
-            <span class="gastro-check">✓</span>
-            <div class="gastro-item-text">
-              10 namjenskih vizuala hrane
-              <small>Styling + napredna digitalna obrada</small>
-            </div>
-          </li>
-          <li>
-            <span class="gastro-check">✓</span>
-            <div class="gastro-item-text">
-              Dizajn i lektura jelovnika
-              <small>Do 4 stranice, priprema za tisak</small>
-            </div>
-          </li>
-          <li>
-            <span class="gastro-check">✓</span>
-            <div class="gastro-item-text">
-              3 unikatna vizuala za društvene mreže
-              <small>Generirani ambijenti za društvene mreže</small>
-            </div>
-          </li>
-          <li>
-            <span class="gastro-check">✓</span>
-            <div class="gastro-item-text">
-              Koordinacija produkcije s tiskarom
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="gastro-price-box reveal-right">
-        <div class="gastro-price-label">Cijena paketa</div>
-        <div class="gastro-price-num">450 €</div>
-        <div class="gastro-price-sub">Sve uključeno — bez skrivenih troškova</div>
-        <a href="#kontakt" class="btn-primary" style="width:100%; text-align:center; display: block;">Zatraži Paket</a>
-      </div>
-    </div>
-  </section>
 
   <section id="cjenik">
     <div class="section-label">Kompletna Ponuda</div>
@@ -1300,10 +1200,6 @@ footer::before {
           <tr>
             <td>Vizualno dokumentiranje događanja i PR <small>prvi sat / svaki sljedeći sat</small></td>
             <td>80,00 € / 50,00 €</td>
-          </tr>
-          <tr>
-            <td>Gastro fotografija – vizuali hrane za marketing <small>min. narudžba 10 komada</small></td>
-            <td>15,00 € <small>/ kom</small></td>
           </tr>
           <tr>
             <td>Fotografiranje interijera i nekretnina <small>do 15 finalnih vizuala po objektu</small></td>
@@ -1462,12 +1358,12 @@ footer::before {
         </div>
         <div>
           <h3 style="font-family: var(--serif); font-size: 1.7rem; font-weight: 300; color: var(--text); line-height: 1.2; margin-bottom: 0.5rem;">Pizzeria<br><span style="font-style: italic; color: var(--gold);">(u pripremi)</span></h3>
-          <p style="font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint);">Lokacija &amp;middot; Gastro</p>
+          <p style="font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint);">Lokacija · Web</p>
         </div>
-        <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.85; flex: 1;">Web stranica s digitalnim jelovnikom, fotografija hrane i vizuali za društvene mreže. Lokalni branding prilagođen gastro publici.</p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.85; flex: 1;">Web stranica s digitalnim jelovnikom, fotografija hrane i vizuali za društvene mreže. Lokalni branding prilagođen publici.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
           <span style="font-size: 0.68rem; color: var(--text-faint); border: 1px solid var(--border); padding: 0.2rem 0.7rem; letter-spacing: 0.04em;">Web dizajn</span>
-          <span style="font-size: 0.68rem; color: var(--text-faint); border: 1px solid var(--border); padding: 0.2rem 0.7rem; letter-spacing: 0.04em;">Gastro foto</span>
+          <span style="font-size: 0.68rem; color: var(--text-faint); border: 1px solid var(--border); padding: 0.2rem 0.7rem; letter-spacing: 0.04em;">Fotografija</span>
           <span style="font-size: 0.68rem; color: var(--text-faint); border: 1px solid var(--border); padding: 0.2rem 0.7rem; letter-spacing: 0.04em;">Vizuali</span>
         </div>
         <span style="font-size: 0.78rem; color: var(--text-faint); letter-spacing: 0.1em; text-transform: uppercase;">Projekt u pripremi</span>
@@ -1555,7 +1451,7 @@ footer::before {
             <select name="service">
               <option>Web za 200 € — akcijska ponuda</option>
               <option>Fotografiranje (Razne foto usluge)</option>
-              <option>Gastro Starter Pack</option>
+              <option>Fotografiranje</option>
               <option>Grafički Dizajn (Logo, Jelovnici...)</option>
               <option>Izrada Web Stranice (od 500 €)</option>
               <option>Vizualne Komunikacije / Fotografiranje</option>
