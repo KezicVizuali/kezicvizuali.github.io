@@ -6,10 +6,14 @@
   <meta name="description" content="Kezić Vizuali — Kreativni studio za web, fotografiju i grafički dizajn. Velika Gorica.">
   <meta property="og:title" content="Portfolio — Kezić Vizuali">
   <meta property="og:description" content="Web stranice, fotografija i grafički dizajn za lokalne poduzetnike.">
-  <meta property="og:image" content="https://kezicvizuali.github.io/logo-za-share.jpg">
-  <meta property="og:url" content="https://kezicvizuali.github.io/portfolio.html">
+  <meta property="og:image" content="https://kezicvizuali.com/logo-za-share.jpg">
+  <meta property="og:url" content="https://kezicvizuali.com/portfolio.html">
   <meta name="twitter:card" content="summary_large_image">
   <title>Portfolio — Kezić Vizuali</title>
+  
+  <!-- UBAČEN FAVICON -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -357,7 +361,7 @@
     .skill-name { font-size: 13px; color: var(--white); }
     .skill-years { font-size: 11px; color: var(--gold); letter-spacing: 0.06em; }
 
-    /* USLUGE */
+    /* USLUGE - STILIZIRANJE NOVIH IKONA */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -372,11 +376,18 @@
       transition: background 0.2s;
     }
     .service-card:hover { background: var(--surface); }
+    
     .service-icon {
-      font-size: 24px;
-      margin-bottom: 14px;
+      color: var(--gold);
+      margin-bottom: 18px;
       display: block;
     }
+    .service-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke-width: 1.2;
+    }
+
     .service-name {
       font-family: var(--font-display);
       font-size: 20px;
@@ -488,7 +499,7 @@
 <body>
 
 <nav>
-  <a href="https://kezicvizuali.github.io/" class="nav-logo">KEZIĆ <span>VIZUALI</span></a>
+  <a href="https://kezicvizuali.com/" class="nav-logo">KEZIĆ <span>VIZUALI</span></a>
   <ul class="nav-links">
     <li><a href="#projekti" class="active">Projekti</a></li>
     <li><a href="#o-meni">O meni</a></li>
@@ -555,6 +566,23 @@
         <span class="chip">Galerija</span>
       </div>
       <a href="https://royalrides.hr/" class="project-link" target="_blank" rel="noopener">
+        Pogledaj stranicu &rarr;
+      </a>
+    </div>
+
+    <!-- Galerija Arts -->
+    <div class="project-card featured">
+      <span class="project-badge badge-done">Objavljeno</span>
+      <div class="project-name">Galerija Arts</div>
+      <p class="project-desc">
+        Digitalni dom za umjetnost i kreativno izražavanje. Izrada modernog i responzivnog weba prilagođenog za isticanje vizualnih djela s naglaskom na detalje i brzu navigaciju.
+      </p>
+      <div class="project-chips">
+        <span class="chip">Web dizajn</span>
+        <span class="chip">Art Portfolio</span>
+        <span class="chip">UI/UX</span>
+      </div>
+      <a href="https://galerijaarts.com/" class="project-link" target="_blank" rel="noopener">
         Pogledaj stranicu &rarr;
       </a>
     </div>
@@ -644,31 +672,46 @@
 
   <div class="services-grid">
     <div class="service-card">
-      <span class="service-icon">🌐</span>
+      <span class="service-icon">
+        <!-- Ikona za Web -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </span>
       <div class="service-name">Web stranice</div>
       <p class="service-desc">Ultra-brze web stranice bez mjesečnih troškova hostinga. Fotografiranje, copywriting i SEO uključeni.</p>
       <div class="service-price">Od 100 €</div>
     </div>
     <div class="service-card">
-      <span class="service-icon">📸</span>
+      <span class="service-icon">
+        <!-- Ikona za Fotografiju -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </span>
       <div class="service-name">Fotografija</div>
       <p class="service-desc">Autorska fotografija hrane, prostora i događanja. Profesionalna obrada i isporuka u produkcijskoj kvaliteti.</p>
       <div class="service-price">Od 15 € / kom</div>
     </div>
     <div class="service-card">
-      <span class="service-icon">🖼️</span>
+      <span class="service-icon">
+        <!-- Ikona za Portrete -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/></svg>
+      </span>
       <div class="service-name">Portreti & Headshots</div>
       <p class="service-desc">Profesionalni portreti za web, LinkedIn i tisak. Poslovne i osobne sesije s obradom svih finalnih fotografija.</p>
       <div class="service-price">Od 80 €</div>
     </div>
     <div class="service-card">
-      <span class="service-icon">🎨</span>
+      <span class="service-icon">
+        <!-- Ikona za Dizajn -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg>
+      </span>
       <div class="service-name">Grafički dizajn</div>
       <p class="service-desc">Logotipi, jelovnici, vizitke, plakati i ostali tiskani materijali. Priprema za tisak uključena.</p>
       <div class="service-price">Od 30 €</div>
     </div>
     <div class="service-card">
-      <span class="service-icon">📣</span>
+      <span class="service-icon">
+        <!-- Ikona za Mreže -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </span>
       <div class="service-name">Društvene mreže</div>
       <p class="service-desc">Vođenje Facebook i Instagram stranica s kreativnim vizualima i tekstovima prilagođenim brendu.</p>
       <div class="service-price">Od 300 € / mj.</div>
@@ -712,9 +755,9 @@
 </section>
 
 <footer>
-  <a href="https://kezicvizuali.github.io/" class="footer-logo">KEZIĆ <span>VIZUALI</span></a>
+  <a href="https://kezicvizuali.com/" class="footer-logo">KEZIĆ <span>VIZUALI</span></a>
   <span class="footer-copy">&copy; 2026 Kezić Vizuali. Sva prava pridržana.</span>
-  <a href="https://kezicvizuali.github.io/" class="footer-link">kezicvizuali.github.io</a>
+  <a href="https://kezicvizuali.com/" class="footer-link">kezicvizuali.com</a>
 </footer>
 
 </body>
