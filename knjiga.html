@@ -123,7 +123,7 @@ nav { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-
   <script>
     const params = new URLSearchParams(window.location.search);
     const slug = params.get('slug');
-    const tekst = TEKSTOVI.find(t => t.slug === slug && t.tip === 'roman');
+    const tekst = TEKSTOVI.find(t => t.slug === slug);
     const gate = document.getElementById('gate');
     const bookWrap = document.getElementById('book-wrap');
     const fallback = document.getElementById('fallback');
@@ -215,9 +215,13 @@ nav { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-
         const end = document.createElement('div');
         end.className = 'my-page end-page';
         end.setAttribute('data-density', 'hard');
+        const endEyebrow = tekst.tip === 'roman' ? 'Kraj ulomka' : 'Kraj';
+        const endText = tekst.tip === 'roman'
+          ? 'Priča se nastavlja... vrati se uskoro za više.'
+          : 'Hvala na čitanju.';
         end.innerHTML = `
-          <div class="eyebrow">Kraj ulomka</div>
-          <p>Priča se nastavlja... vrati se uskoro za više.</p>
+          <div class="eyebrow">${endEyebrow}</div>
+          <p>${endText}</p>
           <a href="tekstovi.html">&larr; Natrag na sve tekstove</a>
         `;
         bookEl.appendChild(end);

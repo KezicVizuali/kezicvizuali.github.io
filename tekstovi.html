@@ -192,7 +192,7 @@ footer { background:#000; padding:5rem 5% 2rem; border-top:1px solid var(--borde
       grid.innerHTML = '';
       const list = TEKSTOVI.filter(t => activeTip === 'sve' || t.tip === activeTip);
       list.forEach(t => {
-        const href = t.tip === 'roman' ? `knjiga.html?slug=${t.slug}` : `citaj.html?slug=${t.slug}`;
+        const href = `knjiga.html?slug=${t.slug}`;
         const card = document.createElement('a');
         card.href = href;
         card.className = 'tekst-card';
@@ -205,7 +205,7 @@ footer { background:#000; padding:5rem 5% 2rem; border-top:1px solid var(--borde
           <p class="tekst-excerpt">${t.excerpt}</p>
           <div class="tekst-footer">
             <span class="tekst-datum">${t.datum}</span>
-            <span class="tekst-cta">${t.tip === 'roman' ? 'Otvori knjigu →' : 'Pročitaj →'}</span>
+            <span class="tekst-cta">Otvori knjigu →</span>
           </div>
         `;
         grid.appendChild(card);
