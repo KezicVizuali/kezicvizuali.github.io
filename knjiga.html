@@ -50,7 +50,9 @@ nav { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-
 #book-container { width: 100%; max-width: 900px; display:flex; justify-content:center; }
 #book { }
 .my-page { background: var(--paper); color: var(--paper-text); box-shadow: inset 0 0 40px rgba(0,0,0,0.06); }
-.page-content { height:100%; padding: 2.2rem 2rem; display:flex; flex-direction:column; overflow:hidden; }
+.page-content { height:100%; padding: 2.2rem 2rem; display:flex; flex-direction:column; overflow-y:auto; scrollbar-width: thin; scrollbar-color: rgba(43,36,24,0.35) transparent; }
+.page-content::-webkit-scrollbar { width: 5px; }
+.page-content::-webkit-scrollbar-thumb { background: rgba(43,36,24,0.3); border-radius: 3px; }
 .page-content p { font-family: var(--serif); font-size: 1.08rem; line-height:1.75; margin-bottom: 0.9rem; }
 .page-num { margin-top:auto; text-align:center; font-size:0.65rem; letter-spacing:0.1em; color: rgba(43,36,24,0.4); padding-top:0.5rem; }
 
@@ -158,25 +160,50 @@ nav { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-
       }
 
       function paginirajTekst(paragraphs, budzet) {
+        // Dijeli isključivo po riječima (nikad po regexu za rečenice),
+        // pa je zagarantirano da se nijedan znak teksta nikad ne izgubi
+        // niti da jedan odlomak ostane predugačak za jednu stranicu.
         const stranice = [];
         let trenutna = [];
         let duljina = 0;
+
+        function zatvoriStranicu() {
+          if (trenutna.length) {
+            stranice.push(trenutna);
+            trenutna = [];
+            duljina = 0;
+          }
+        }
+
         paragraphs.forEach(par => {
-          const recenice = par.match(/[^.!?]+[.!?]+(\s+|$)/g) || [par];
-          let odlomakDio = '';
-          recenice.forEach(rec => {
-            if (duljina + rec.length > budzet && trenutna.length > 0) {
-              if (odlomakDio.trim()) { trenutna.push(odlomakDio.trim()); odlomakDio = ''; }
-              stranice.push(trenutna);
-              trenutna = [];
-              duljina = 0;
+          if (par.length <= budzet) {
+            if (duljina + par.length > budzet) zatvoriStranicu();
+            trenutna.push(par);
+            duljina += par.length;
+            return;
+          }
+          // Odlomak je dulji od cijelog budžeta stranice — dijeli se po riječima
+          const riječi = par.split(/\s+/);
+          let dio = '';
+          riječi.forEach(rijec => {
+            const kandidat = dio ? dio + ' ' + rijec : rijec;
+            if (kandidat.length > budzet) {
+              if (duljina + dio.length > budzet) zatvoriStranicu();
+              trenutna.push(dio);
+              duljina += dio.length;
+              zatvoriStranicu();
+              dio = rijec;
+            } else {
+              dio = kandidat;
             }
-            odlomakDio += rec;
-            duljina += rec.length;
           });
-          if (odlomakDio.trim()) trenutna.push(odlomakDio.trim());
+          if (dio) {
+            if (duljina + dio.length > budzet) zatvoriStranicu();
+            trenutna.push(dio);
+            duljina += dio.length;
+          }
         });
-        if (trenutna.length) stranice.push(trenutna);
+        zatvoriStranicu();
         return stranice;
       }
 
@@ -184,7 +211,7 @@ nav { position: fixed; top:0; left:0; right:0; z-index:100; display:flex; align-
         document.getElementById('meta-tag').textContent = tekst.tipLabel;
         document.getElementById('meta-naslov').textContent = tekst.naslov;
 
-        const stranice = paginirajTekst(tekst.sadrzaj, 620);
+        const stranice = paginirajTekst(tekst.sadrzaj, 380);
         const bookEl = document.getElementById('book');
         bookEl.innerHTML = '';
 
