@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Kezić Vizuali — Profesionalna web stranica za samo 200€. Bez pretplate, hosting zauvijek besplatan. Za obrte, OPG-ove i udruge.">
-<meta property="og:title" content="Vaš web. Zauvijek vaš. Za samo 200 €.">
+<meta name="description" content="Kezić Vizuali — Predblagdanska akcija: kompletna web stranica + vizualni koncept za 290 € – 390 € (redovna cijena 800 €+). Prvih 10 projekata, do 20. prosinca. Bez pretplate, hosting zauvijek besplatan.">
+<meta property="og:title" content="Vaš web. Zauvijek vaš. Predblagdanska akcija od 290 €.">
 <meta property="og:description" content="Kompletan profesionalni web — fotografiranje, copywriting, SEO, besplatan hosting. Jednom platite, zauvijek vaše.">
 <meta property="og:image" content="https://kezicvizuali.com/logo-za-share.jpg">
 <meta property="og:url" content="https://kezicvizuali.com/ponuda100.html">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Vaš web. Zauvijek vaš. Za samo 200 €.">
+<meta name="twitter:title" content="Vaš web. Zauvijek vaš. Predblagdanska akcija od 290 €.">
 <meta name="twitter:description" content="Kompletan profesionalni web — fotografiranje, copywriting, SEO, besplatan hosting. Jednom platite, zauvijek vaše.">
 <meta name="twitter:image" content="https://kezicvizuali.com/logo-za-share.jpg">
 <link rel="canonical" href="https://kezicvizuali.com/ponuda100.html">
-<title>Web za 200 € — Kezić Vizuali</title>
+<title>Predblagdanska akcija: Web od 290 € — Kezić Vizuali</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -132,11 +132,91 @@ footer a:hover { color: var(--gold); }
 .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scroll-pulse 1.8s ease-in-out infinite; }
 @keyframes scroll-pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 @media (max-width: 768px) { .compare-grid { grid-template-columns: 1fr; } .kontakt-grid { grid-template-columns: 1fr; gap: 3rem; } .hero-price-big { font-size: clamp(5rem, 22vw, 9rem); } .price-anchor-inner { padding: 2.5rem 1.5rem; } #included, #comparison, #price-anchor, #kontakt-lp { padding: 5rem 5%; } }
+
+/* ── ODBROJAVANJE (predblagdanska akcija) ── */
+.xmas-countdown { margin: 0 0 1.1rem; }
+.xmas-countdown .cd-segs { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.xmas-countdown.center .cd-segs { justify-content: center; }
+.xmas-countdown .cd-seg { min-width: 64px; padding: 0.6rem 0.7rem 0.5rem; text-align: center; border: 1px solid rgba(201,168,76,0.3); background: rgba(201,168,76,0.05); }
+.xmas-countdown .cd-num { display: block; font-family: var(--serif); font-size: 1.8rem; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+.xmas-countdown .cd-lbl { display: block; margin-top: 0.35rem; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-faint); }
+.xmas-countdown .cd-ended { display: none; font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); }
+.xmas-countdown.ended .cd-segs { display: none; }
+.xmas-countdown.ended .cd-ended { display: block; }
+.btn-wa-inner { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; }
+@media (max-width: 600px) {
+  .xmas-countdown .cd-segs { flex-wrap: nowrap; gap: 0.4rem; }
+  .xmas-countdown .cd-seg { min-width: 0; flex: 1 1 0; padding: 0.5rem 0.2rem 0.4rem; }
+  .xmas-countdown .cd-num { font-size: 1.5rem; }
+}
+
+/* ── PROMO TRAKA (fiksna, iznad navigacije) ── */
+:root { --promo-h: 0px; }
+body { padding-top: var(--promo-h, 0px); }
+nav { top: var(--promo-h, 0px); transition: top 0.3s ease; }
+.promo-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 101; background: linear-gradient(90deg, #0d0d0a 0%, #1a1608 40%, #0d0d0a 100%); border-bottom: 1px solid rgba(201,168,76,0.3); overflow: hidden; }
+.promo-bar::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.06) 50%, transparent 100%); animation: promo-shimmer 4s ease-in-out infinite; }
+@keyframes promo-shimmer { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+.promo-bar-inner { display: flex; align-items: center; justify-content: center; gap: 0.4rem 1.4rem; padding: 0.55rem 5%; flex-wrap: wrap; position: relative; z-index: 1; }
+.promo-bar-badge { background: var(--gold); color: #080807; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; padding: 0.22rem 0.7rem; font-weight: 500; flex-shrink: 0; }
+.promo-bar-text { font-size: 0.82rem; color: var(--text); display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+.promo-bar-text strong { color: var(--gold); font-weight: 500; }
+.promo-bar-text .sep { color: var(--text-faint); }
+.promo-timer b { font-weight: 500; color: var(--gold); font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
+.promo-bar-cta { background: transparent; border: 1px solid var(--gold); color: var(--gold); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.35rem 1rem; text-decoration: none; transition: background 0.2s, color 0.2s; flex-shrink: 0; white-space: normal; line-height: 1.35; }
+.promo-bar-cta:hover { background: var(--gold); color: #080807; }
+.promo-bar-cta .btn-wa-inner { text-align: center; }
+.promo-bar-close { background: none; border: none; color: var(--text-faint); font-size: 1rem; padding: 0.2rem 0.4rem; flex-shrink: 0; transition: color 0.2s; cursor: pointer; line-height: 1; }
+.promo-bar-close:hover { color: var(--text-mute, var(--text-faint)); }
+
+.promo-bar-inner { gap: 0.4rem 1.4rem; padding: 0.55rem 5%; }
+@media (max-width: 1500px) { .promo-opt { display: none !important; } }
+@media (max-width: 600px) {
+  .promo-bar-text strong { display: none; }
+  .promo-bar-text .sep { display: none; }
+  .promo-bar-badge { font-size: 0.55rem; letter-spacing: 0.12em; padding: 0.2rem 0.55rem; }
+  .promo-bar-text { flex: 0 1 auto; gap: 0.3rem; font-size: 0.72rem; }
+  .promo-bar-close { position: absolute; top: 3px; right: 4px; }
+  .promo-bar-inner { padding: 0.5rem 2rem 0.5rem 4%; justify-content: center; }
+}
+
+/* ── HERO: predblagdanska ponuda ── */
+.hero-price-big.range { font-size: clamp(3.6rem, 12vw, 9rem); letter-spacing: -0.02em; white-space: nowrap; }
+.hero-regular { position: relative; z-index: 2; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 1.6rem; opacity: 0; animation: fade-up 0.9s 0.4s ease forwards; }
+.hero-regular s { color: var(--text-muted); }
+.hero-offer { position: relative; z-index: 2; max-width: 640px; margin: 0 auto 2.2rem; padding: 1.5rem 1.8rem; border: 1px solid rgba(201,168,76,0.3); background: rgba(201,168,76,0.04); opacity: 0; animation: fade-up 0.9s 0.8s ease forwards; }
+.hero-offer-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 1.2rem; }
+.hero-offer-text strong { color: var(--gold); font-weight: 500; }
+.hero-offer .xmas-countdown { margin-bottom: 0; }
+.btn-gold.btn-wa { white-space: normal; line-height: 1.5; }
+@media (max-width: 900px) {
+  .promo-bar-inner { gap: 0.4rem 1rem; padding: 0.5rem 4%; }
+  .promo-opt { display: none !important; }
+  .promo-bar-text { font-size: 0.74rem; gap: 0.5rem; }
+  .promo-bar-cta { font-size: 0.62rem; padding: 0.3rem 0.8rem; letter-spacing: 0.1em; }
+  .hero-offer { padding: 1.2rem 1rem; }
+  .xmas-countdown .cd-seg { min-width: 56px; }
+}
 </style>
 </head>
 <body>
   <div id="cursor"></div>
   <div id="cursor-ring"></div>
+
+  <div class="promo-bar" id="promo-bar">
+    <div class="promo-bar-inner">
+      <span class="promo-bar-badge" data-hr="🎄 Predblagdanska akcija" data-en="🎄 Pre-holiday offer">🎄 Predblagdanska akcija</span>
+      <span class="promo-bar-text">
+        <strong data-hr="Web + vizualni koncept od 290 €" data-en="Website + visual concept from 290 €">Web + vizualni koncept od 290 €</strong>
+        <span class="sep promo-opt">·</span>
+        <span class="promo-opt" data-hr="preko 50% popusta do popunjenja termina" data-en="over 50% off until slots are filled">preko 50% popusta do popunjenja termina</span>
+        <span class="sep">·</span>
+        <span class="promo-timer">⏳ <b class="js-countdown-inline" data-deadline="2026-12-20T23:59:59+01:00"></b></span>
+      </span>
+      <a href="https://wa.me/385976002753?text=Pozdrav%21%20Zanima%20me%20predblagdanska%20akcija%20%28web%20stranica%20%2B%20vizualni%20koncept%29.%20Molim%20besplatnu%20procjenu%20i%20koncept." target="_blank" rel="noopener" class="promo-bar-cta"><span class="btn-wa-inner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-hr="Besplatna procjena i koncept" data-en="Free estimate and concept">Besplatna procjena i koncept</span></span></a>
+      <button class="promo-bar-close" id="promo-close" aria-label="Zatvori">✕</button>
+    </div>
+  </div>
 
   <nav>
     <a href="index.html" class="nav-logo">Kezić Vizuali</a>
@@ -154,10 +234,24 @@ footer a:hover { color: var(--gold); }
     <div class="hero-bg"></div>
     <div class="hero-grid-lines"></div>
 
-    <div class="hero-badge" data-hr="Akcijska Ponuda 2026" data-en="Special Offer 2026">Akcijska Ponuda 2026</div>
-    <div class="hero-price-big"><sup>€</sup>200</div>
+    <div class="hero-badge" data-hr="🎄 Predblagdanska akcija 2026" data-en="🎄 Pre-holiday Offer 2026">🎄 Predblagdanska akcija 2026</div>
+    <div class="hero-price-big range"><sup>€</sup>290–390</div>
+    <div class="hero-regular"><span data-hr="redovna cijena" data-en="regular price">redovna cijena</span> <s>800 €+</s> · <span data-hr="jednokratno" data-en="one-time">jednokratno</span></div>
     <h1 class="hero-tagline" data-hr="Vaš web. Zauvijek vaš.<br><em>Jednom platite i nikad više.</em>" data-en="Your web. Yours forever.<br><em>Pay once and never again.</em>">Vaš web. Zauvijek vaš.<br><em>Jednom platite i nikad više.</em></h1>
     <p class="hero-sub" data-hr="Kompletan profesionalni web za vaš biznis, obrt, OPG ili udrugu. Bez pretplate. Bez skrivenih troškova. Bez ovisnosti o agenciji." data-en="Complete professional web for your business, trade, family farm or association. No subscription. No hidden costs. No agency dependency.">Kompletan profesionalni web za vaš biznis, obrt, OPG ili udrugu. Bez pretplate. Bez skrivenih troškova. Bez ovisnosti o agenciji.</p>
+
+    <div class="hero-offer">
+      <p class="hero-offer-text" data-hr="<strong>Predblagdanska ponuda:</strong> kompletna izrada ultra-brze web stranice + vizualni koncept za 290 € – 390 € (redovna cijena 800 €+). Akcija vrijedi samo za prvih 10 projekata, do 20. prosinca — ili do popunjenja slobodnih termina." data-en="<strong>Pre-holiday offer:</strong> complete ultra-fast website + visual concept for €290 – €390 (regular price €800+). The offer applies to the first 10 projects only, until 20 December — or until the available slots are filled."><strong>Predblagdanska ponuda:</strong> kompletna izrada ultra-brze web stranice + vizualni koncept za 290 € – 390 € (redovna cijena 800 €+). Akcija vrijedi samo za prvih 10 projekata, do 20. prosinca — ili do popunjenja slobodnih termina.</p>
+      <div class="xmas-countdown js-countdown center" data-deadline="2026-12-20T23:59:59+01:00">
+            <div class="cd-segs">
+              <div class="cd-seg"><span class="cd-num" data-unit="d">--</span><span class="cd-lbl" data-hr="dana" data-en="days">dana</span></div>
+              <div class="cd-seg"><span class="cd-num" data-unit="h">--</span><span class="cd-lbl" data-hr="sati" data-en="hours">sati</span></div>
+              <div class="cd-seg"><span class="cd-num" data-unit="m">--</span><span class="cd-lbl" data-hr="min" data-en="min">min</span></div>
+              <div class="cd-seg"><span class="cd-num" data-unit="s">--</span><span class="cd-lbl" data-hr="sek" data-en="sec">sek</span></div>
+            </div>
+            <span class="cd-ended" data-hr="Akcija je završena" data-en="The offer has ended">Akcija je završena</span>
+          </div>
+    </div>
 
     <div class="hero-pills">
       <div class="pill" data-hr="Ultra-brzo učitavanje" data-en="Ultra-fast loading">Ultra-brzo učitavanje</div>
@@ -167,7 +261,7 @@ footer a:hover { color: var(--gold); }
     </div>
 
     <div class="hero-cta-group">
-      <a href="#kontakt-lp" class="btn-gold" data-hr="Javite se danas →" data-en="Contact us today →">Javite se danas →</a>
+      <a href="https://wa.me/385976002753?text=Pozdrav%21%20Zanima%20me%20predblagdanska%20akcija%20%28web%20stranica%20%2B%20vizualni%20koncept%29.%20Molim%20besplatnu%20procjenu%20i%20koncept." target="_blank" rel="noopener" class="btn-gold btn-wa"><span class="btn-wa-inner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-hr="Zatražite besplatnu procjenu i koncept" data-en="Request a free estimate and concept">Zatražite besplatnu procjenu i koncept</span></span></a>
       <a href="#included" class="btn-ghost" data-hr="Što je uključeno" data-en="What's included">Što je uključeno</a>
     </div>
 
@@ -248,7 +342,7 @@ footer a:hover { color: var(--gold); }
       </div>
       <div class="compare-col us">
         <div class="compare-header">Kezić Vizuali</div>
-        <div class="compare-item"><span class="compare-check">✓</span> <span data-hr="Samo <strong>200 €</strong> — sve uključeno" data-en="Only <strong>200 €</strong> — all included">Samo <strong>200 €</strong> — sve uključeno</span></div>
+        <div class="compare-item"><span class="compare-check">✓</span> <span data-hr="Od <strong>290 €</strong> — sve uključeno" data-en="From <strong>290 €</strong> — all included">Od <strong>290 €</strong> — sve uključeno</span></div>
         <div class="compare-item"><span class="compare-check">✓</span> <span data-hr="Hosting zauvijek besplatan" data-en="Hosting forever free">Hosting zauvijek besplatan</span></div>
         <div class="compare-item"><span class="compare-check">✓</span> <span data-hr="Stranica je 100% vaša" data-en="The site is 100% yours">Stranica je 100% vaša</span></div>
         <div class="compare-item"><span class="compare-check">✓</span> <span data-hr="Bez sitnih slova" data-en="No fine print">Bez sitnih slova</span></div>
@@ -267,10 +361,22 @@ footer a:hover { color: var(--gold); }
   <!-- PRICE ANCHOR -->
   <section id="price-anchor">
     <div class="price-anchor-inner reveal">
-      <div class="price-anchor-label" data-hr="Akcijska cijena — samo dok traje" data-en="Special price — only while it lasts">Akcijska cijena — samo dok traje</div>
-      <div class="price-anchor-num"><sup>€</sup>200</div>
-      <p class="price-anchor-text" data-hr="Mjesta su ograničena. Bez obveze, bez sitnih slova." data-en="Spots are limited. No obligations, no fine print.">Mjesta su ograničena. Bez obveze, bez sitnih slova.</p>
-      <a href="#kontakt-lp" class="btn-gold" data-hr="Javite se danas →" data-en="Contact us today →">Javite se danas →</a>
+      <div class="price-anchor-label" data-hr="Predblagdanska cijena — vrijedi do 20. prosinca" data-en="Pre-holiday price — valid until 20 December">Predblagdanska cijena — vrijedi do 20. prosinca</div>
+      <div class="price-anchor-num" style="font-size: clamp(3.4rem, 10vw, 7rem);"><sup>€</sup>290–390</div>
+      <p class="price-anchor-text" data-hr="Redovna cijena 800 €+. Akcija vrijedi samo za prvih 10 projekata. Mjesta su ograničena. Bez obveze, bez sitnih slova." data-en="Regular price €800+. The offer applies to the first 10 projects only. Spots are limited. No obligations, no fine print.">Redovna cijena 800 €+. Akcija vrijedi samo za prvih 10 projekata. Mjesta su ograničena. Bez obveze, bez sitnih slova.</p>
+      <div class="xmas-countdown js-countdown center" data-deadline="2026-12-20T23:59:59+01:00">
+            <div class="cd-segs">
+              <div class="cd-seg"><span class="cd-num" data-unit="d">--</span><span class="cd-lbl" data-hr="dana" data-en="days">dana</span></div>
+              <div class="cd-seg"><span class="cd-num" data-unit="h">--</span><span class="cd-lbl" data-hr="sati" data-en="hours">sati</span></div>
+              <div class="cd-seg"><span class="cd-num" data-unit="m">--</span><span class="cd-lbl" data-hr="min" data-en="min">min</span></div>
+              <div class="cd-seg"><span class="cd-num" data-unit="s">--</span><span class="cd-lbl" data-hr="sek" data-en="sec">sek</span></div>
+            </div>
+            <span class="cd-ended" data-hr="Akcija je završena" data-en="The offer has ended">Akcija je završena</span>
+          </div>
+      <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <a href="https://wa.me/385976002753?text=Pozdrav%21%20Zanima%20me%20predblagdanska%20akcija%20%28web%20stranica%20%2B%20vizualni%20koncept%29.%20Molim%20besplatnu%20procjenu%20i%20koncept." target="_blank" rel="noopener" class="btn-gold btn-wa"><span class="btn-wa-inner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span data-hr="Zatražite besplatnu procjenu i koncept" data-en="Request a free estimate and concept">Zatražite besplatnu procjenu i koncept</span></span></a>
+        <a href="#kontakt-lp" class="btn-ghost" data-hr="Ili pošaljite upit" data-en="Or send an inquiry">Ili pošaljite upit</a>
+      </div>
       <div class="price-anchor-fine" data-hr="Imate pitanje? Nazovite: <a href='tel:+385976002753'>097 600 2753</a> ili pišite: <a href='mailto:kezicvizuali@gmail.com'>kezicvizuali@gmail.com</a>" data-en="Have a question? Call: <a href='tel:+385976002753'>097 600 2753</a> or write: <a href='mailto:kezicvizuali@gmail.com'>kezicvizuali@gmail.com</a>">
         Imate pitanje? Nazovite: <a href="tel:+385976002753">097 600 2753</a> ili pišite: <a href="mailto:kezicvizuali@gmail.com">kezicvizuali@gmail.com</a>
       </div>
@@ -286,6 +392,15 @@ footer a:hover { color: var(--gold); }
     <div class="kontakt-grid">
       <div class="kontakt-left reveal">
         <p data-hr="Pošaljite upit i odgovorit ću vam u najkraćem mogućem roku. Razgovaramo bez obveza, samo da vidimo odgovara li vam ova ponuda." data-en="Send an inquiry and I will reply as soon as possible. We talk without obligations, just to see if this offer suits you.">Pošaljite upit i odgovorit ću vam u najkraćem mogućem roku. Razgovaramo bez obveza, samo da vidimo odgovara li vam ova ponuda.</p>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <div class="contact-text">
+            <label>WhatsApp</label>
+            <span><a href="https://wa.me/385976002753?text=Pozdrav%21%20Zanima%20me%20predblagdanska%20akcija%20%28web%20stranica%20%2B%20vizualni%20koncept%29.%20Molim%20besplatnu%20procjenu%20i%20koncept." target="_blank" rel="noopener" data-hr="Brzi chat — odgovaram odmah" data-en="Quick chat — I reply right away">Brzi chat — odgovaram odmah</a></span>
+          </div>
+        </div>
         <div class="contact-item">
           <div class="contact-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
@@ -317,7 +432,7 @@ footer a:hover { color: var(--gold); }
 
       <div class="reveal">
         <form class="lp-form" action="https://formspree.io/f/mgoqkdek" method="POST" id="lp-form">
-          <input type="hidden" name="subject" value="Upit: Web za 200€ — ponuda100">
+          <input type="hidden" name="subject" value="Upit: Predblagdanska akcija — besplatna procjena i koncept (ponuda100)">
           <div class="form-group">
             <label data-hr="Ime i Prezime / Tvrtka / Obrt" data-en="Full Name / Company / Trade">Ime i Prezime / Tvrtka / Obrt</label>
             <input type="text" name="name" placeholder="Vaše ime" data-hr-placeholder="Vaše ime" data-en-placeholder="Your name" required>
@@ -334,7 +449,7 @@ footer a:hover { color: var(--gold); }
             <label data-hr="Kratko opišite vaše poslovanje" data-en="Briefly describe your business">Kratko opišite vaše poslovanje</label>
             <textarea name="message" placeholder="Npr. restoran u Varaždinu, tražim jednostavan web s jelovnikom..." data-hr-placeholder="Npr. restoran u Varaždinu, tražim jednostavan web s jelovnikom..." data-en-placeholder="E.g. a restaurant in Varaždin, looking for a simple website with a menu..." required></textarea>
           </div>
-          <button type="submit" class="btn-gold" style="margin-top: 0.5rem; width: fit-content;" data-hr="Pošalji upit →" data-en="Send inquiry →">Pošalji upit →</button>
+          <button type="submit" class="btn-gold" style="margin-top: 0.5rem; width: fit-content;" data-hr="Zatražite besplatnu procjenu i koncept →" data-en="Request a free estimate and concept →">Zatražite besplatnu procjenu i koncept →</button>
         </form>
         <div id="lp-form-success" data-hr="Hvala! Javljam se uskoro. 🙏" data-en="Thank you! I will get in touch soon. 🙏">Hvala! Javljam se uskoro. 🙏</div>
       </div>
@@ -376,6 +491,52 @@ footer a:hover { color: var(--gold); }
         }
     }
 
+    // ── PROMO TRAKA + ODBROJAVANJE DO 20. PROSINCA ──
+    (function () {
+      const root = document.documentElement;
+      const bar = document.getElementById('promo-bar');
+      function syncPromoH() {
+        const visible = bar && getComputedStyle(bar).display !== 'none';
+        root.style.setProperty('--promo-h', (visible ? bar.offsetHeight : 0) + 'px');
+      }
+      if (bar) {
+        syncPromoH();
+        window.addEventListener('resize', syncPromoH);
+        window.addEventListener('load', syncPromoH);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncPromoH);
+        if ('ResizeObserver' in window) new ResizeObserver(syncPromoH).observe(bar);
+        const closeBtn = document.getElementById('promo-close');
+        if (closeBtn) closeBtn.addEventListener('click', () => { bar.style.display = 'none'; syncPromoH(); });
+      }
+
+      const boxes = document.querySelectorAll('.js-countdown');
+      const inline = document.querySelectorAll('.js-countdown-inline');
+      const pad = n => String(n).padStart(2, '0');
+      function tick() {
+        const now = Date.now();
+        boxes.forEach(el => {
+          const diff = Math.max(0, new Date(el.dataset.deadline).getTime() - now);
+          const s = Math.floor(diff / 1000);
+          const set = (u, v) => { const n = el.querySelector('[data-unit="' + u + '"]'); if (n) n.textContent = v; };
+          set('d', Math.floor(s / 86400));
+          set('h', pad(Math.floor((s % 86400) / 3600)));
+          set('m', pad(Math.floor((s % 3600) / 60)));
+          set('s', pad(s % 60));
+          el.classList.toggle('ended', diff === 0);
+        });
+        inline.forEach(el => {
+          const diff = Math.max(0, new Date(el.dataset.deadline).getTime() - now);
+          const s = Math.floor(diff / 1000);
+          el.textContent = Math.floor(s / 86400) + 'd ' + pad(Math.floor((s % 86400) / 3600)) + 'h ' +
+                           pad(Math.floor((s % 3600) / 60)) + 'm ' + pad(s % 60) + 's';
+          const wrap = el.closest('.promo-timer');
+          if (wrap) wrap.style.display = diff === 0 ? 'none' : '';
+        });
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursor-ring');
     let mx = 0, my = 0, rx = 0, ry = 0;
@@ -404,8 +565,8 @@ footer a:hover { color: var(--gold); }
       try {
         const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
         if (res.ok) { form.style.display = 'none'; success.style.display = 'block'; }
-        else { btn.textContent = isEn ? 'Send inquiry →' : 'Pošalji upit →'; btn.disabled = false; }
-      } catch { btn.textContent = isEn ? 'Send inquiry →' : 'Pošalji upit →'; btn.disabled = false; }
+        else { btn.textContent = isEn ? 'Request a free estimate and concept →' : 'Zatražite besplatnu procjenu i koncept →'; btn.disabled = false; }
+      } catch { btn.textContent = isEn ? 'Request a free estimate and concept →' : 'Zatražite besplatnu procjenu i koncept →'; btn.disabled = false; }
     });
   </script>
 </body>
